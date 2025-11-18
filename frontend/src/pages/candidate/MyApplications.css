@@ -1,0 +1,208 @@
+.my-applications-page {
+  background: linear-gradient(to bottom, #f9fafb 0%, #f5f7fa 100%);
+  min-height: 100vh;
+}
+
+.page-title {
+  padding: 40px 0;
+  position: relative;
+}
+
+.page-title h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 12px;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title h1::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.page-title p {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.applications-list {
+  display: grid;
+  gap: 20px;
+  padding-bottom: 60px;
+}
+
+.application-card {
+  background: white;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f3f4f6;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.application-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+}
+
+.application-card:hover::before {
+  transform: scaleY(1);
+}
+
+.application-card:hover {
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+  transform: translateX(4px);
+  border-color: #e0e7ff;
+}
+
+.application-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.job-company-info {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+}
+
+.company-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.job-title-link {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.job-title-link:hover {
+  color: #2563eb;
+}
+
+.company-name {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.application-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-item .label {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-item span:last-child {
+  font-weight: 500;
+  color: #111827;
+}
+
+.cover-letter-preview {
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+.cover-letter-preview strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.cover-letter-preview p {
+  color: #374151;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.empty-state h3 {
+  font-size: 24px;
+  color: #111827;
+  margin: 20px 0 8px;
+}
+
+.empty-state p {
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .application-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .application-info {
+    grid-template-columns: 1fr;
+  }
+}
+

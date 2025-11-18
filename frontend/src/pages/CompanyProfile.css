@@ -1,0 +1,183 @@
+.company-profile-page {
+  background: linear-gradient(to bottom, #f9fafb 0%, #f5f7fa 100%);
+  min-height: 100vh;
+}
+
+.company-header {
+  background: linear-gradient(135deg, #4bb7bc 0%, #3b82f6 100%);
+  padding: 48px 0;
+  color: white;
+}
+
+.company-header-content {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.company-logo-xl {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.company-logo-xl img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.company-logo-xl .logo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  font-weight: 700;
+}
+
+.company-header-info h1 {
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.company-tagline {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.company-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.company-meta .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.company-meta .meta-item svg {
+  opacity: 0.8;
+}
+
+.company-meta .meta-item a {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Tabs */
+.company-tabs {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tab {
+  padding: 16px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.tab:hover {
+  color: #2563eb;
+}
+
+/* Content */
+.company-content {
+  padding: 32px 0 60px;
+}
+
+.about-section .card {
+  padding: 36px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f3f4f6;
+  transition: all 0.3s ease;
+}
+
+.about-section .card:hover {
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.12);
+}
+
+.about-section h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  position: relative;
+}
+
+.about-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.company-description {
+  color: #374151;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.jobs-section .jobs-list {
+  display: grid;
+  gap: 20px;
+}
+
+.no-jobs {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.no-jobs p {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .company-header-content {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .company-meta {
+    justify-content: center;
+  }
+}
+
