@@ -2,172 +2,13 @@
 
 Hệ thống tuyển dụng IT chuyên nghiệp được xây dựng với MERN Stack (MongoDB, Express.js, React.js, Node.js).
 
-## 📋 Mục lục
-
-- [Tính năng chính](#tính-năng-chính)
-- [Công nghệ sử dụng](#công-nghệ-sử-dụng)
-- [Cấu trúc project](#cấu-trúc-project)
-- [Cài đặt và chạy project](#cài-đặt-và-chạy-project)
-- [Tài khoản demo](#tài-khoản-demo)
-
-## ✨ Tính năng chính
-
-### 🔐 Hệ thống xác thực
-
-- Đăng ký/Đăng nhập với Email & Password
-- Lựa chọn vai trò: Ứng viên hoặc Nhà tuyển dụng
-- JWT Authentication
-- Protected Routes
-
-### 👨‍💼 Dành cho ứng viên
-
-- **Quản lý hồ sơ cá nhân**
-
-  - Cập nhật thông tin cá nhân
-  - Quản lý học vấn, kinh nghiệm, chứng chỉ
-  - Upload CV
-  - Quản lý kỹ năng
-
-- **Tìm kiếm việc làm**
-
-  - Tìm kiếm theo từ khóa, địa điểm, mức lương
-  - Lọc theo danh mục, loại hình, kinh nghiệm
-  - Xem chi tiết công việc
-  - Lưu công việc yêu thích
-
-- **Ứng tuyển**
-
-  - Ứng tuyển bằng CV đã lưu hoặc upload CV mới
-  - Viết cover letter
-  - Theo dõi trạng thái đơn ứng tuyển
-  - Nhận thông báo cập nhật trạng thái
-
-- **Khác**
-  - Theo dõi công ty
-  - Đánh giá công ty (sau khi được tuyển)
-
-### 🏢 Dành cho nhà tuyển dụng
-
-- **Quản lý hồ sơ công ty**
-
-  - Cập nhật thông tin công ty
-  - Logo, website, quy mô
-  - Mô tả công ty
-
-- **Đăng tin tuyển dụng**
-
-  - Tạo tin tuyển dụng mới
-  - Chỉnh sửa/Xóa tin đăng
-  - Đóng/Mở lại tin tuyển dụng
-  - Quản lý danh sách tin đã đăng
-
-- **Quản lý ứng viên**
-
-  - Xem danh sách ứng viên theo từng công việc
-  - Xem chi tiết hồ sơ ứng viên
-  - Cập nhật trạng thái ứng tuyển (Pending, Reviewing, Interview, Rejected, Hired)
-  - Xem CV của ứng viên
-
-- **Thống kê**
-  - Tổng số tin tuyển dụng
-  - Số lượng ứng viên
-  - Lượt xem công việc
-
-## 🛠 Công nghệ sử dụng
-
-### Backend
-
-- **Node.js** v22.x
-- **Express.js** - Web framework
-- **MongoDB Atlas** - Database
-- **Mongoose** - ODM
-- **JWT** - Authentication
-- **bcryptjs** - Password hashing
-
-### Frontend
-
-- **React** 18.x
-- **React Router DOM** v6 - Routing
-- **Zustand** - State management
-- **Axios** - HTTP client
-- **React Icons** - Icons
-
-## 📁 Cấu trúc project
-
-```
-itwork/
-├── backend/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── userController.js
-│   │   ├── jobController.js
-│   │   ├── applicationController.js
-│   │   ├── companyController.js
-│   │   └── reviewController.js
-│   ├── middleware/
-│   │   ├── auth.js
-│   │   └── errorHandler.js
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Job.js
-│   │   ├── Application.js
-│   │   └── Review.js
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── userRoutes.js
-│   │   ├── jobRoutes.js
-│   │   ├── applicationRoutes.js
-│   │   ├── companyRoutes.js
-│   │   └── reviewRoutes.js
-│   └── server.js
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Header.js
-│   │   │   ├── Footer.js
-│   │   │   └── JobCard.js
-│   │   ├── pages/
-│   │   │   ├── Home.js
-│   │   │   ├── Login.js
-│   │   │   ├── Signup.js
-│   │   │   ├── Jobs.js
-│   │   │   ├── JobDetails.js
-│   │   │   ├── Companies.js
-│   │   │   ├── CompanyProfile.js
-│   │   │   ├── candidate/
-│   │   │   │   ├── Profile.js
-│   │   │   │   ├── MyApplications.js
-│   │   │   │   └── SavedJobs.js
-│   │   │   └── employer/
-│   │   │       ├── Dashboard.js
-│   │   │       ├── Profile.js
-│   │   │       ├── CreateJob.js
-│   │   │       ├── ManageJobs.js
-│   │   │       └── Applicants.js
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── store/
-│   │   │   └── useAuthStore.js
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
-│
-├── .gitignore
-├── package.json
-└── README.md
-```
-
 ## 🚀 Cài đặt và chạy project
 
 ### Yêu cầu hệ thống
 
 - Node.js v22.x
 - npm v10.x
-- MongoDB Atlas account
+- MongoDB Atlas account (MongoDB không cần cài đặt)
 
 ### 1. Clone repository
 
@@ -178,17 +19,10 @@ cd itwork
 
 ### 2. Cài đặt dependencies
 
-#### Cài đặt cho toàn bộ project
-
-```bash
-npm run install:all
-```
-
-Hoặc cài đặt riêng:
-
 #### Backend
 
 ```bash
+cd backend
 npm install
 ```
 
@@ -199,15 +33,7 @@ cd frontend
 npm install
 ```
 
-### 3. Cấu hình MongoDB Atlas
-
-1. Tạo account tại [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-2. Tạo cluster mới (Free tier)
-3. Tạo database user
-4. Whitelist IP address (0.0.0.0/0 cho development)
-5. Lấy connection string
-
-### 4. Cấu hình Environment Variables
+### 3. Cấu hình Environment Variables
 
 Tạo file `.env` ở thư mục root:
 
@@ -233,7 +59,7 @@ Tạo file `frontend/.env`:
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-### 5. Chạy ứng dụng
+### 4. Chạy ứng dụng
 
 #### Development mode (chạy đồng thời Backend & Frontend)
 
@@ -244,6 +70,7 @@ npm run dev:all
 #### Chạy riêng Backend
 
 ```bash
+cd frontend
 npm run dev
 ```
 
@@ -259,24 +86,18 @@ npm start
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000
 
-### 6. Build cho Production
-
-```bash
-cd frontend
-npm run build
-```
 
 ## 👤 Tài khoản demo
 
 ### Ứng viên
 
-- Email: candidate@test.com
-- Password: 123456
+- Email: candidate@gmail.com
+- Password: 123qweasd
 
 ### Nhà tuyển dụng
 
-- Email: employer@test.com
-- Password: 123456
+- Email: employer@gmail.com
+- Password: 123qweasd
 
 ## 📝 API Endpoints
 
@@ -321,19 +142,3 @@ npm run build
 - `POST /api/reviews` - Tạo đánh giá (Candidate)
 - `GET /api/reviews/company/:companyId` - Lấy đánh giá của công ty
 - `GET /api/reviews/my-reviews` - Lấy đánh giá của candidate
-
-## 🎨 Screenshots
-
-[Thêm screenshots của ứng dụng tại đây]
-
-## 📄 License
-
-MIT License
-
-## 👨‍💻 Author
-
-ITViec Development Team
-
----
-
-**Note**: Đây là project học tập/demo. Không sử dụng cho mục đích thương mại.
