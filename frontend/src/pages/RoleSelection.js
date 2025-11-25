@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuthStore from '../store/useAuthStore';
+import { FiArrowLeft } from 'react-icons/fi';
 import './Auth.css';
 
 const RoleSelection = () => {
@@ -55,11 +56,13 @@ const RoleSelection = () => {
 
   return (
     <div className="auth-page">
-      <button className="home-button" onClick={handleGoHome}>Quay về trang chủ</button>
+      <button className="home-button" onClick={handleGoHome}>
+        <FiArrowLeft /> Quay về trang chủ
+      </button>
       <div className="auth-container">
         <div className="auth-card">
           <h1 className="auth-title">
-            {role === 'candidate' ? 'Đăng ký tài khoản ứng viên' : 'Đăng ký tài khoản nhà tuyển dụng'}
+            {role === 'candidate' ? 'Đăng ký tài khoản Ứng viên' : 'Đăng ký tài khoản Nhà tuyển dụng'}
           </h1>
           <p className="auth-subtitle">
             {role === 'candidate' 
@@ -140,4 +143,3 @@ const RoleSelection = () => {
 };
 
 export default RoleSelection;
-

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/useAuthStore';
+import { FiArrowLeft } from 'react-icons/fi';
 import './Auth.css';
 
 const Login = () => {
@@ -44,16 +45,18 @@ const Login = () => {
     <div className="login-page">
       <div className="login-left">
         <div className="login-overlay">
-          <h1 className="login-title">Find a Traveler</h1>
-          <p className="login-subtitle">Send or Carry – Hassle Free</p>
+          <h1 className="login-title">ITWorks</h1>
+          <p className="login-subtitle">Kết nối nhân tài IT với doanh nghiệp hàng đầu</p>
         </div>
       </div>
 
       <div className="login-right">
-        <button className="home-button" onClick={handleGoHome}>Quay về trang chủ</button>
+        <button className="home-button" onClick={handleGoHome}>
+          <FiArrowLeft /> Quay về trang chủ
+        </button>
         <div className="login-card">
           <h2 className="auth-title">Chào mừng bạn trở lại</h2>
-          <p className="auth-subtitle">Đăng nhập để tiếp tục trên ITWorks</p>
+          <p className="auth-subtitle">Đăng nhập để tiếp tục</p>
 
           {error && <div className="alert alert-error">{error}</div>}
 
@@ -84,7 +87,7 @@ const Login = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
+            <button type="submit" className="btn-login" disabled={loading}>
               {loading ? '⏳ Đang đăng nhập...' : '🚀 Đăng nhập'}
             </button>
           </form>
