@@ -1,5 +1,5 @@
 .jobs-page {
-  background: linear-gradient(to bottom, #f9fafb 0%, #f5f7fa 100%);
+  background: var(--bg-body);
   min-height: 100vh;
 }
 
@@ -12,48 +12,49 @@
 
 .filters-sidebar {
   background: white;
-  border-radius: 16px;
-  padding: 28px;
+  border-radius: var(--radius-lg);
+  padding: 24px;
   height: fit-content;
   position: sticky;
   top: 88px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f3f4f6;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.05);
   transition: all 0.3s ease;
 }
 
 .filters-sidebar:hover {
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.12);
+  box-shadow: var(--shadow-soft);
 }
 
 .filter-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 28px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #f3f4f6;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E5E7EB;
   position: relative;
 }
 
 .filter-header::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -1px;
   left: 0;
-  width: 60px;
+  width: 40px;
   height: 2px;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: var(--secondary);
 }
 
 .filter-header h3 {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-main);
+  margin: 0;
 }
 
 .filter-header svg {
-  color: #667eea;
+  color: var(--secondary);
 }
 
 .filter-group {
@@ -62,28 +63,30 @@
 
 .filter-group label {
   display: block;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 8px;
-  color: #374151;
+  color: var(--text-main);
+  font-size: 14px;
 }
 
 .filter-group select,
 .filter-group input {
   width: 100%;
-  padding: 12px 14px;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
+  padding: 10px 14px;
+  border: 1px solid #E5E7EB;
+  border-radius: var(--radius-md);
   font-size: 14px;
-  transition: all 0.3s ease;
-  background: #f9fafb;
+  transition: all 0.2s ease;
+  background: var(--bg-input);
+  color: var(--text-main);
 }
 
 .filter-group select:focus,
 .filter-group input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--secondary);
   background: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 201, 167, 0.1);
 }
 
 .jobs-content {
@@ -92,25 +95,28 @@
 
 .jobs-header {
   margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .jobs-header h2 {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 800;
-  color: #111827;
+  color: var(--text-main);
   position: relative;
   display: inline-block;
-  padding-bottom: 12px;
+  margin: 0;
 }
 
 .jobs-header h2::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   left: 0;
-  width: 60px;
+  width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: var(--secondary);
   border-radius: 2px;
 }
 
@@ -123,17 +129,19 @@
   text-align: center;
   padding: 80px 20px;
   background: white;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
 .no-results h3 {
-  font-size: 24px;
-  color: #111827;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
   margin-bottom: 8px;
 }
 
 .no-results p {
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 1024px) {
@@ -145,4 +153,3 @@
     position: static;
   }
 }
-
