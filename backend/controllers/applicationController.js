@@ -208,7 +208,7 @@ exports.updateApplicationStatus = async (req, res, next) => {
           type: 'status_change',
           title: 'Cập nhật đơn ứng tuyển',
           message: `${employer.companyName || 'Nhà tuyển dụng'} đã cập nhật trạng thái đơn ứng tuyển "${application.job.title}" của bạn thành "${statusMessages[status] || status}"`,
-          link: `/jobs/${application.job._id}`,
+          link: `/candidate/applications`, // fix
           relatedJob: application.job._id,
           relatedApplication: application._id
         });

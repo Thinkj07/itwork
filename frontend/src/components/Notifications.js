@@ -38,16 +38,17 @@ const Notifications = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Sửa trong Notifications.js
+
   const fetchNotifications = async () => {
     try {
       setLoading(true);
       const response = await notificationAPI.getNotifications();
-      // Ensure notifications is always an array
-      setNotifications(response?.data?.data || []);
-      setUnreadCount(response?.data?.unreadCount || 0);
+      // Sửa: Bỏ một lớp .data vì interceptor đã trả về response.data
+      setNotifications(response?.data || response || []);
+      setUnreadCount(response?.unreadCount || 0);
     } catch (error) {
       console.error('Error fetching notifications:', error);
-      // Set to empty array on error
       setNotifications([]);
       setUnreadCount(0);
     } finally {
@@ -58,16 +59,18 @@ const Notifications = () => {
   const fetchUnreadCount = async () => {
     try {
       const response = await notificationAPI.getUnreadCount();
-      setUnreadCount(response?.data?.count || 0);
+      // Sửa: Bỏ một lớp .data
+      setUnreadCount(response?.count || response || 0);
     } catch (error) {
       console.error('Error fetching unread count:', error);
       setUnreadCount(0);
     }
   };
 
+// frontend/src/components/Notifications.js
+
   const handleNotificationClick = async (notification) => {
     try {
-      // Mark as read if not already
       if (!notification.isRead) {
         await notificationAPI.markAsRead(notification._id);
         setUnreadCount(prev => Math.max(0, prev - 1));
@@ -76,9 +79,26 @@ const Notifications = () => {
         );
       }
       
-      // Navigate to the link
       setIsOpen(false);
-      navigate(notification.link);
+      
+      // fix
+      const applicationId = notification.relatedApplication?._id || notification.relatedApplication;
+      const jobId = notification.relatedJob?._id || notification.relatedJob;
+      
+      console.log('Notification clicked:', {
+        notification,
+        applicationId,
+        jobId,
+        relatedApplication: notification.relatedApplication,
+        relatedJob: notification.relatedJob
+      });
+      
+      navigate('/candidate/applications', {
+        state: {
+          scrollToApplication: applicationId,
+          scrollToJob: jobId
+        }
+      });
     } catch (error) {
       console.error('Error marking notification as read:', error);
     }

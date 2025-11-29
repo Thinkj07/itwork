@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// frontend/src/pages/candidate/MyApplications.js
+
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { applicationAPI } from '../../services/api';
@@ -9,13 +11,87 @@ import './MyApplications.css';
 const MyApplications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const applicationRefs = useRef({});
+  const hasScrolledRef = useRef(false); // Prevent multiple scrolls
 
   useEffect(() => {
     fetchApplications();
   }, []);
 
+  // Scroll to application when coming from notification
+  useEffect(() => {
+    if (!loading && applications.length > 0 && location.state && !hasScrolledRef.current) {
+      const { scrollToApplication, scrollToJob } = location.state;
+      
+      console.log('Scroll attempt:', { scrollToApplication, scrollToJob, applicationsCount: applications.length });
+      console.log('Available refs:', Object.keys(applicationRefs.current));
+      
+      const scrollTimeout = setTimeout(() => {
+        let element = null;
+        let foundKey = null;
+        
+        if (scrollToApplication) {
+          element = applicationRefs.current[scrollToApplication];
+          if (element) foundKey = scrollToApplication;
+        }
+        
+        if (!element && scrollToJob) {
+          const jobKey = `job-${scrollToJob}`;
+          element = applicationRefs.current[jobKey];
+          if (element) foundKey = jobKey;
+        }
+        
+        if (!element && scrollToJob) {
+          const matchingApp = applications.find(app => app.job?._id === scrollToJob);
+          if (matchingApp) {
+            element = applicationRefs.current[matchingApp._id];
+            if (element) foundKey = matchingApp._id;
+          }
+        }
+        
+        if (element) {
+          console.log('Found element, scrolling to:', foundKey);
+          
+          const headerHeight = 80; // Adjust based on your header height
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight - (window.innerHeight / 2) + (element.offsetHeight / 2);
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+          
+          element.style.transition = 'all 0.3s ease';
+          element.style.boxShadow = '0 8px 24px rgba(0, 201, 167, 0.3)';
+          element.style.borderColor = 'var(--secondary)';
+          element.style.borderWidth = '2px';
+          
+          setTimeout(() => {
+            element.style.boxShadow = '';
+            element.style.borderColor = '';
+            element.style.borderWidth = '';
+          }, 1500);
+          
+          hasScrolledRef.current = true;
+        } else {
+          console.warn('Element not found for scroll:', { scrollToApplication, scrollToJob });
+        }
+      }, 500);
+      
+
+      setTimeout(() => {
+        window.history.replaceState({}, document.title);
+      }, 1000);
+      
+      return () => clearTimeout(scrollTimeout);
+    }
+  }, [loading, location.state, applications]);
+
   const fetchApplications = async () => {
     try {
+      setLoading(true);
+      hasScrolledRef.current = false; // Reset scroll flag when fetching new data
       const data = await applicationAPI.getMyApplications();
       setApplications(data.data || []);
     } catch (error) {
@@ -61,7 +137,27 @@ const MyApplications = () => {
         ) : applications.length > 0 ? (
           <div className="applications-list">
             {applications.map(application => (
-              <div key={application._id} className="application-card">
+              <div 
+                key={application._id} 
+                className="application-card" 
+                ref={(el) => {
+                  if (el) {
+                    // Store ref by application ID
+                    applicationRefs.current[application._id] = el;
+                    
+                    // Also store by job ID if available
+                    if (application.job?._id) {
+                      applicationRefs.current[`job-${application.job._id}`] = el;
+                    }
+                    
+                    // Debug: Log when ref is assigned
+                    if (location.state?.scrollToApplication === application._id || 
+                        location.state?.scrollToJob === application.job?._id) {
+                      console.log('Ref assigned for:', application._id, application.job?._id);
+                    }
+                  }
+                }}
+              >
                 <div className="application-header">
                   <div className="job-company-info">
                     <div className="company-logo">
@@ -125,4 +221,3 @@ const MyApplications = () => {
 };
 
 export default MyApplications;
-

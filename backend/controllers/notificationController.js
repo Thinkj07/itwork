@@ -6,6 +6,7 @@ exports.getNotifications = async (req, res, next) => {
     const notifications = await Notification.find({ recipient: req.user.id })
       .populate('sender', 'fullName email')
       .populate('relatedJob', 'title')
+      .populate('relatedApplication', '_id') // ✅ Thêm populate này
       .sort({ createdAt: -1 })
       .limit(50);
 
