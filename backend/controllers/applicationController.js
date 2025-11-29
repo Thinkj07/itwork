@@ -59,7 +59,7 @@ exports.applyForJob = async (req, res, next) => {
         type: 'application',
         title: 'Ứng viên mới',
         message: `${candidate.fullName} đã ứng tuyển vào vị trí "${job.title}"`,
-        link: `/employer/applicants/${jobId}`,
+        link: `/employer/jobs`, // ✅ Sửa thành manage jobs page
         relatedJob: jobId,
         relatedApplication: application._id
       });
