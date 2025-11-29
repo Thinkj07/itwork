@@ -1,5 +1,5 @@
 .create-job-page {
-  background: linear-gradient(to bottom, #f9fafb 0%, #f5f7fa 100%);
+  background: var(--bg-body);
   min-height: 100vh;
 }
 
@@ -10,29 +10,28 @@
 .back-btn {
   background: transparent;
   border: none;
-  color: #667eea;
+  color: var(--text-secondary);
   font-weight: 600;
   cursor: pointer;
   margin-bottom: 16px;
-  padding: 10px 16px;
+  padding: 8px 0;
   font-size: 15px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
 .back-btn:hover {
-  background: rgba(102, 126, 234, 0.1);
   transform: translateX(-4px);
-  color: #764ba2;
+  color: var(--primary);
 }
 
 .page-header-section h1 {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 800;
-  color: #111827;
+  color: var(--text-main);
   position: relative;
   display: inline-block;
 }
@@ -42,9 +41,9 @@
   position: absolute;
   bottom: -8px;
   left: 0;
-  width: 100px;
+  width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: var(--secondary);
   border-radius: 2px;
 }
 
@@ -56,41 +55,42 @@
 
 .job-form .card {
   margin-bottom: 28px;
-  padding: 36px;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f3f4f6;
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.05);
   transition: all 0.3s ease;
+  background: white;
 }
 
 .job-form .card:hover {
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.12);
+  box-shadow: var(--shadow-soft);
 }
 
 .job-form h2 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-main);
   margin-bottom: 28px;
   padding-bottom: 20px;
-  border-bottom: 2px solid #f3f4f6;
+  border-bottom: 1px solid #E5E7EB;
   position: relative;
 }
 
 .job-form h2::before {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -1px;
   left: 0;
   width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  height: 3px;
+  background: var(--secondary);
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 24px;
 }
 
 .form-actions-bottom {
@@ -113,4 +113,3 @@
     width: 100%;
   }
 }
-
