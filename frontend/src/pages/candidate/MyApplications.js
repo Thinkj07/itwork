@@ -1,5 +1,3 @@
-// frontend/src/pages/candidate/MyApplications.js
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Header';
@@ -8,12 +6,40 @@ import { applicationAPI } from '../../services/api';
 import { FiClock, FiCheckCircle, FiXCircle, FiFileText } from 'react-icons/fi';
 import './MyApplications.css';
 
+const smoothScrollTo = (element, offset = 0) => {
+  const headerHeight = 80;
+  const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+  const targetPosition = elementPosition - headerHeight - (window.innerHeight / 2) + (element.offsetHeight / 2) + offset;
+  const startPosition = window.pageYOffset;
+  const distance = targetPosition - startPosition;
+  const duration = 800;
+  let start = null;
+
+  const easeInOutCubic = (t) => {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  };
+
+  const animation = (currentTime) => {
+    if (start === null) start = currentTime;
+    const timeElapsed = currentTime - start;
+    const progress = Math.min(timeElapsed / duration, 1);
+    
+    window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
+    
+    if (progress < 1) {
+      requestAnimationFrame(animation);
+    }
+  };
+
+  requestAnimationFrame(animation);
+};
+
 const MyApplications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const applicationRefs = useRef({});
-  const hasScrolledRef = useRef(false); // Prevent multiple scrolls
+  const hasScrolledRef = useRef(false);
 
   useEffect(() => {
     fetchApplications();
@@ -24,65 +50,44 @@ const MyApplications = () => {
     if (!loading && applications.length > 0 && location.state && !hasScrolledRef.current) {
       const { scrollToApplication, scrollToJob } = location.state;
       
-      console.log('Scroll attempt:', { scrollToApplication, scrollToJob, applicationsCount: applications.length });
-      console.log('Available refs:', Object.keys(applicationRefs.current));
-      
       const scrollTimeout = setTimeout(() => {
         let element = null;
-        let foundKey = null;
         
         if (scrollToApplication) {
           element = applicationRefs.current[scrollToApplication];
-          if (element) foundKey = scrollToApplication;
         }
         
         if (!element && scrollToJob) {
           const jobKey = `job-${scrollToJob}`;
           element = applicationRefs.current[jobKey];
-          if (element) foundKey = jobKey;
         }
         
         if (!element && scrollToJob) {
           const matchingApp = applications.find(app => app.job?._id === scrollToJob);
           if (matchingApp) {
             element = applicationRefs.current[matchingApp._id];
-            if (element) foundKey = matchingApp._id;
           }
         }
         
         if (element) {
-          console.log('Found element, scrolling to:', foundKey);
+          // Smooth scroll với easing
+          smoothScrollTo(element);
           
-          const headerHeight = 80; // Adjust based on your header height
-          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - headerHeight - (window.innerHeight / 2) + (element.offsetHeight / 2);
+          // Thêm highlight class
+          element.classList.add('highlight-notification');
           
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-          
-          element.style.transition = 'all 0.3s ease';
-          element.style.boxShadow = '0 8px 24px rgba(0, 201, 167, 0.3)';
-          element.style.borderColor = 'var(--secondary)';
-          element.style.borderWidth = '2px';
-          
+          // Remove sau khi animation xong
           setTimeout(() => {
-            element.style.boxShadow = '';
-            element.style.borderColor = '';
-            element.style.borderWidth = '';
+            element.classList.remove('highlight-notification');
           }, 1500);
           
           hasScrolledRef.current = true;
-        } else {
-          console.warn('Element not found for scroll:', { scrollToApplication, scrollToJob });
         }
-      }, 500);
+      }, 400);
       
-
       setTimeout(() => {
         window.history.replaceState({}, document.title);
-      }, 1000);
+      }, 1500);
       
       return () => clearTimeout(scrollTimeout);
     }
@@ -91,7 +96,7 @@ const MyApplications = () => {
   const fetchApplications = async () => {
     try {
       setLoading(true);
-      hasScrolledRef.current = false; // Reset scroll flag when fetching new data
+      hasScrolledRef.current = false;
       const data = await applicationAPI.getMyApplications();
       setApplications(data.data || []);
     } catch (error) {

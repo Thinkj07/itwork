@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiBell, FiX, FiCheck } from 'react-icons/fi';
 import { notificationAPI } from '../services/api';
+import useAuthStore from '../store/useAuthStore';
 import './Notifications.css';
 
 const Notifications = () => {
@@ -11,6 +12,7 @@ const Notifications = () => {
   const [loading, setLoading] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const { user } = useAuthStore();
 
   useEffect(() => {
     fetchUnreadCount();
@@ -81,24 +83,29 @@ const Notifications = () => {
       
       setIsOpen(false);
       
-      // fix
       const applicationId = notification.relatedApplication?._id || notification.relatedApplication;
       const jobId = notification.relatedJob?._id || notification.relatedJob;
       
-      console.log('Notification clicked:', {
-        notification,
-        applicationId,
-        jobId,
-        relatedApplication: notification.relatedApplication,
-        relatedJob: notification.relatedJob
-      });
-      
-      navigate('/candidate/applications', {
-        state: {
-          scrollToApplication: applicationId,
-          scrollToJob: jobId
-        }
-      });
+      // Kiểm tra role để navigate đúng trang
+      if (user?.role === 'candidate') {
+        // Candidate: Navigate đến applications page
+        navigate('/candidate/applications', {
+          state: {
+            scrollToApplication: applicationId,
+            scrollToJob: jobId
+          }
+        });
+      } else if (user?.role === 'employer') {
+        // Employer: Navigate đến manage jobs page
+        navigate('/employer/jobs', {
+          state: {
+            scrollToJob: jobId
+          }
+        });
+      } else {
+        // Fallback: dùng link từ notification
+        navigate(notification.link || '/');
+      }
     } catch (error) {
       console.error('Error marking notification as read:', error);
     }

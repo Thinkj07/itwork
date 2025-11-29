@@ -216,3 +216,56 @@
   }
 }
 
+.application-card.highlight-notification {
+  animation: highlightPulse 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border-color: var(--secondary) !important;
+  border-width: 2px !important;
+}
+
+@keyframes highlightPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 201, 167, 0);
+    transform: scale(1);
+    border-color: rgba(0, 201, 167, 0.3);
+  }
+  15% {
+    box-shadow: 0 8px 32px rgba(0, 201, 167, 0.4);
+    transform: scale(1.01);
+    border-color: var(--secondary);
+  }
+  30% {
+    box-shadow: 0 12px 40px rgba(0, 201, 167, 0.35);
+    transform: scale(1.005);
+  }
+  50% {
+    box-shadow: 0 8px 24px rgba(0, 201, 167, 0.3);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: scale(1);
+    border-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Glow effect cho border */
+.application-card.highlight-notification::before {
+  background: linear-gradient(180deg, var(--secondary) 0%, var(--primary) 100%);
+  transform: scaleY(1);
+  animation: borderGlow 1.5s ease-in-out;
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Smooth transition cho card */
+.application-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow, border-color;
+}
