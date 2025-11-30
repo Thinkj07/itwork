@@ -287,3 +287,45 @@ exports.uploadApplicationCV = async (req, res, next) => {
   }
 };
 
+// @desc    Withdraw application (for candidate)
+// @route   DELETE /api/applications/:id
+// @access  Private (Candidate only)
+exports.withdrawApplication = async (req, res, next) => {
+  try {
+    const application = await Application.findById(req.params.id);
+
+    if (!application) {
+      return res.status(404).json({
+        success: false,
+        message: 'Không tìm thấy đơn ứng tuyển'
+      });
+    }
+
+    // Make sure user is the candidate who owns this application
+    if (application.candidate.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: 'Bạn không có quyền rút đơn ứng tuyển này'
+      });
+    }
+
+    // Get job to update application count
+    const job = await Job.findById(application.job);
+    if (job && job.applicationCount > 0) {
+      job.applicationCount -= 1;
+      await job.save();
+    }
+
+    // Delete the application
+    await application.deleteOne();
+
+    res.json({
+      success: true,
+      message: 'Đã rút đơn ứng tuyển thành công',
+      data: {}
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

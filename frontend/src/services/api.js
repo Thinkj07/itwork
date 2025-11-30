@@ -89,6 +89,7 @@ export const applicationAPI = {
   getEmployerApplications: () => api.get('/applications/employer'),
   getApplication: (id) => api.get(`/applications/${id}`),
   updateStatus: (id, data) => api.put(`/applications/${id}/status`, data),
+  withdrawApplication: (id) => api.delete(`/applications/${id}`),
   uploadApplicationCV: (formData) => {
     return axios.post(`${API_URL}/applications/upload-cv`, formData, {
       headers: {

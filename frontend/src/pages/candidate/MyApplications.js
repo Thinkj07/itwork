@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { applicationAPI } from '../../services/api';
-import { FiClock, FiCheckCircle, FiXCircle, FiFileText } from 'react-icons/fi';
+import { FiClock, FiCheckCircle, FiXCircle, FiFileText, FiX } from 'react-icons/fi';
 import './MyApplications.css';
 
 const smoothScrollTo = (element, offset = 0) => {
@@ -37,6 +37,9 @@ const smoothScrollTo = (element, offset = 0) => {
 const MyApplications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  const [applicationToWithdraw, setApplicationToWithdraw] = useState(null);
+  const [withdrawing, setWithdrawing] = useState(false);
   const location = useLocation();
   const applicationRefs = useRef({});
   const hasScrolledRef = useRef(false);
@@ -125,6 +128,40 @@ const MyApplications = () => {
     );
   };
 
+  const handleWithdrawClick = (application) => {
+    setApplicationToWithdraw(application);
+    setShowWithdrawModal(true);
+  };
+
+  const handleConfirmWithdraw = async () => {
+    if (!applicationToWithdraw) return;
+
+    setWithdrawing(true);
+    try {
+      await applicationAPI.withdrawApplication(applicationToWithdraw._id);
+      
+      // Remove application from list
+      setApplications(applications.filter(app => app._id !== applicationToWithdraw._id));
+      
+      // Close modal
+      setShowWithdrawModal(false);
+      setApplicationToWithdraw(null);
+      
+      // Show success message
+      alert('Đã rút đơn ứng tuyển thành công');
+    } catch (error) {
+      console.error('Error withdrawing application:', error);
+      alert(error.message || 'Có lỗi xảy ra khi rút đơn ứng tuyển');
+    } finally {
+      setWithdrawing(false);
+    }
+  };
+
+  const handleCancelWithdraw = () => {
+    setShowWithdrawModal(false);
+    setApplicationToWithdraw(null);
+  };
+
   return (
     <div className="my-applications-page">
       <Header />
@@ -205,6 +242,17 @@ const MyApplications = () => {
                     <p>{application.coverLetter.substring(0, 150)}...</p>
                   </div>
                 )}
+
+                <div className="application-actions">
+                  <button
+                    onClick={() => handleWithdrawClick(application)}
+                    className="btn-withdraw"
+                    title="Rút đơn ứng tuyển"
+                  >
+                    <FiX size={16} />
+                    Rút đơn
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -219,6 +267,41 @@ const MyApplications = () => {
           </div>
         )}
       </div>
+
+      {/* Withdraw Confirmation Modal */}
+      {showWithdrawModal && applicationToWithdraw && (
+        <div className="modal-overlay" onClick={handleCancelWithdraw}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Xác nhận rút đơn ứng tuyển</h2>
+            <p>
+              Bạn có chắc chắn muốn rút đơn ứng tuyển cho vị trí <strong>"{applicationToWithdraw.job?.title}"</strong> tại <strong>{applicationToWithdraw.company?.companyName}</strong>?
+            </p>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginTop: '12px' }}>
+              Hành động này không thể hoàn tác. Đơn ứng tuyển sẽ bị xóa vĩnh viễn.
+            </p>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                onClick={handleCancelWithdraw}
+                className="btn btn-secondary"
+                disabled={withdrawing}
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmWithdraw}
+                className="btn btn-primary"
+                disabled={withdrawing}
+                style={{ backgroundColor: 'var(--error)' }}
+              >
+                {withdrawing ? 'Đang xử lý...' : 'Xác nhận'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

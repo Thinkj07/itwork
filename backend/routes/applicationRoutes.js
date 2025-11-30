@@ -7,7 +7,8 @@ const {
   getEmployerApplications,
   updateApplicationStatus,
   getApplication,
-  uploadApplicationCV
+  uploadApplicationCV,
+  withdrawApplication
 } = require('../controllers/applicationController');
 const { protect, authorize } = require('../middleware/auth');
 const upload = require('../middleware/upload');
@@ -19,6 +20,7 @@ router.get('/employer', protect, authorize('employer'), getEmployerApplications)
 router.get('/job/:jobId', protect, authorize('employer'), getJobApplications);
 router.get('/:id', protect, getApplication);
 router.put('/:id/status', protect, authorize('employer'), updateApplicationStatus);
+router.delete('/:id', protect, authorize('candidate'), withdrawApplication);
 
 module.exports = router;
 
