@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuthStore from '../store/useAuthStore';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiUser, FiBriefcase, FiMail, FiLock } from 'react-icons/fi';
 import './Auth.css';
 
 const RoleSelection = () => {
@@ -75,7 +75,10 @@ const RoleSelection = () => {
           <form onSubmit={handleSubmit} className="auth-form">
             {role === 'candidate' ? (
               <div className="form-group">
-                <label className="form-label">👤 Họ và tên</label>
+                <label className="form-label">
+                  <FiUser style={{ marginRight: '8px', verticalAlign: 'middle', marginBottom: '3px' }} />
+                  Họ và tên
+                </label>
                 <input
                   type="text"
                   name="fullName"
@@ -88,7 +91,10 @@ const RoleSelection = () => {
               </div>
             ) : (
               <div className="form-group">
-                <label className="form-label">🏢 Tên công ty</label>
+                <label className="form-label">
+                  <FiBriefcase style={{ marginRight: '8px', verticalAlign: 'middle', marginBottom: '3px' }} />
+                  Tên công ty
+                </label>
                 <input
                   type="text"
                   name="companyName"
@@ -102,7 +108,10 @@ const RoleSelection = () => {
             )}
 
             <div className="form-group">
-              <label className="form-label">✉️ Email</label>
+              <label className="form-label">
+                <FiMail style={{ marginRight: '8px', verticalAlign: 'middle', marginBottom: '3px' }} />
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
@@ -115,7 +124,10 @@ const RoleSelection = () => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">🔒 Mật khẩu</label>
+              <label className="form-label">
+                <FiLock style={{ marginRight: '8px', verticalAlign: 'middle', marginBottom: '4px' }} />
+                Mật khẩu
+              </label>
               <input
                 type="password"
                 name="password"
@@ -129,7 +141,7 @@ const RoleSelection = () => {
             </div>
 
             <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
-              {loading ? '⏳ Đang đăng ký...' : '🚀 Đăng ký ngay'}
+              {loading ? '⏳ Đang đăng ký...' : 'Đăng ký ngay'}
             </button>
           </form>
 

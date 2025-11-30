@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/useAuthStore';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiMail, FiLock } from 'react-icons/fi';
 import './Auth.css';
 
 const Login = () => {
@@ -62,33 +62,39 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-group">
-              <label className="form-label">✉️ Email</label>
-              <input
-                type="email"
-                name="email"
-                className="form-input"
-                placeholder="your@email.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                <label className="form-label">
+                  <FiMail style={{ marginRight: '8px', verticalAlign: 'middle', marginBottom: '3px' }} />
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  className="form-input"
+                  placeholder="your@email.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <div className="form-group">
-              <label className="form-label">🔒 Mật khẩu</label>
-              <input
-                type="password"
-                name="password"
-                className="form-input"
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
+              <div className="form-group">
+                <label className="form-label">
+                  <FiLock style={{ marginRight: '8px', verticalAlign: 'middle', marginBottom: '4px' }} />
+                  Mật khẩu
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-input"
+                  placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
             <button type="submit" className="btn-login" disabled={loading}>
-              {loading ? '⏳ Đang đăng nhập...' : '🚀 Đăng nhập'}
+              {loading ? '⏳ Đang đăng nhập...' : 'Đăng nhập'}
             </button>
           </form>
 

@@ -95,7 +95,7 @@
 .auth-subtitle {
   text-align: center;
   color: var(--text-secondary);
-  margin-bottom: 40px;
+
   font-size: 16px;
   line-height: 1.6;
 }
@@ -241,6 +241,10 @@
 .login-left {
   flex: 1;
   background: var(--bg-gradient);
+  background-image: url('https://topdev.vn/blog/wp-content/uploads/2023/05/ky-nang-lam-viec-nhom-min.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
   display: flex;
   align-items: center;
@@ -249,19 +253,36 @@
   overflow: hidden;
 }
 
+/* Overlay mờ để text vẫn đọc được */
 .login-left::before {
   content: '';
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background: linear-gradient(
+    135deg,
+    rgba(10, 38, 71, 0.75) 0%,
+    rgba(20, 66, 114, 0.65) 100%
+  );
+  z-index: 1;
+}
+
+/* Pattern nhẹ phía trên overlay (tùy chọn) */
+.login-left::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  z-index: 1;
+  opacity: 0.5;
 }
 
 .login-overlay {
   text-align: center;
   padding: 40px;
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Đảm bảo text nằm trên overlay */
   max-width: 400px;
 }
 

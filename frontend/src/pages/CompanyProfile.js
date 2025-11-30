@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import JobCard from '../components/JobCard';
 import { companyAPI } from '../services/api';
 import { FiMapPin, FiUsers, FiGlobe, FiStar } from 'react-icons/fi';
+import { formatWebsiteUrl } from '../utils/url';
 import './CompanyProfile.css';
 
 const CompanyProfile = () => {
@@ -12,6 +13,7 @@ const CompanyProfile = () => {
   const [companyData, setCompanyData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('jobs');
+
 
   useEffect(() => {
     fetchCompanyProfile();
@@ -73,24 +75,28 @@ const CompanyProfile = () => {
               <p className="company-tagline">{company.industry}</p>
               <div className="company-meta">
                 <div className="meta-item">
-                  <FiMapPin />
+                  <FiMapPin color="white"/>
                   <span>{company.companyAddress || 'Location not provided'}</span>
                 </div>
                 {company.companyWebsite && (
                   <div className="meta-item">
-                    <FiGlobe />
-                    <a href={company.companyWebsite} target="_blank" rel="noopener noreferrer">
+                    <FiGlobe color="white"/>
+                    <a 
+                      href={formatWebsiteUrl(company.companyWebsite)} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
                       {company.companyWebsite}
                     </a>
                   </div>
                 )}
                 <div className="meta-item">
-                  <FiUsers />
+                  <FiUsers color="white"/>
                   <span>{company.companySize || '—'} Size</span>
                 </div>
                 {reviews.length > 0 && (
                   <div className="meta-item">
-                    <FiStar />
+                    <FiStar color="white"/>
                     <span>{avgRating} ({reviews.length} reviews)</span>
                   </div>
                 )}

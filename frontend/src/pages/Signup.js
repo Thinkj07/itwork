@@ -29,16 +29,16 @@ const Signup = () => {
               <div className="role-icon-wrapper">
                 <FiUser />
               </div>
-              <span className="role-title">Tôi là Ứng viên</span>
-              <span className="role-description">tôi đang tìm kiếm việc làm IT.</span>
+              <span className="role-title">Ứng viên</span>
+              <span className="role-description">Tôi đang tìm kiếm việc làm IT.</span>
             </div>
             
             <div className="role-card" onClick={() => handleRoleSelect('employer')}>
               <div className="role-icon-wrapper">
                 <FiBriefcase />
               </div>
-              <span className="role-title">Tôi là Nhà tuyển dụng</span>
-              <span className="role-description">tôi đang tìm kiếm nhân tài IT.</span>
+              <span className="role-title">Nhà tuyển dụng</span>
+              <span className="role-description">Tôi đang tìm kiếm nhân tài IT.</span>
             </div>
           </div>
 

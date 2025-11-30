@@ -7,12 +7,9 @@ const JobCard = ({ job, onSave, isSaved }) => {
   const formatSalary = (from, to, currency) => {
     if (!from && !to) return 'Thương lượng';
     const format = (num) => {
-      if (currency === 'VND') {
-        return `${num / 1000000} triệu`;
-      }
-      return `$${num}`;
+      return `${num / 1000000} triệu`;
     };
-    
+    if (!currency) currency = 'VND';
     if (from && to) {
       return `${format(from)} - ${format(to)} ${currency}`;
     }

@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { jobAPI, applicationAPI, userAPI, authAPI } from '../services/api';
 import useAuthStore from '../store/useAuthStore';
 import { FiMapPin, FiDollarSign, FiBriefcase, FiClock, FiUsers, FiCheckCircle, FiBookmark } from 'react-icons/fi';
+import { formatWebsiteUrl } from '../utils/url';
 import './JobDetails.css';
 
 const JobDetails = () => {
@@ -282,7 +283,11 @@ const JobDetails = () => {
                 {job.company?.companyWebsite && (
                   <p>
                     <strong>Website:</strong>{' '}
-                    <a href={job.company.companyWebsite} target="_blank" rel="noopener noreferrer">
+                    <a 
+                      href={formatWebsiteUrl(job.company.companyWebsite)} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
                       {job.company.companyWebsite}
                     </a>
                   </p>

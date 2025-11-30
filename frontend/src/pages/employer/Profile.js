@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import { userAPI, authAPI } from '../../services/api';
 import useAuthStore from '../../store/useAuthStore';
 import { FiEdit2, FiUpload, FiLink } from 'react-icons/fi';
+import { formatWebsiteUrl } from '../../utils/url';
 import './Profile.css';
 
 const EmployerProfile = () => {
@@ -355,8 +356,13 @@ const EmployerProfile = () => {
                     </div>
                   <div className="info-item">
                       <span className="info-label">Website</span>
-                    {profile?.companyWebsite ? (
-                      <a href={profile.companyWebsite} target="_blank" rel="noopener noreferrer" className="info-value info-link">
+                      {profile?.companyWebsite ? (
+                      <a 
+                        href={formatWebsiteUrl(profile.companyWebsite)} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="info-value info-link"
+                      >
                         {profile.companyWebsite}
                       </a>
                     ) : (
