@@ -139,6 +139,25 @@
   color: white;
 }
 
+.btn-close {
+  color: #F59E0B;
+  border: 1px solid #F59E0B;
+  background: transparent;
+}
+
+.btn-close:hover {
+  background: #F59E0B;
+  color: white;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-close:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 @media (max-width: 768px) {
   .job-manage-actions {
     flex-direction: column;
@@ -201,4 +220,95 @@
 .job-manage-card {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, box-shadow, border-color;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 38, 71, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-content h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+.modal-content > p {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.modal-content > p strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.modal-actions .btn {
+  flex: 1;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-actions .btn-secondary {
+  background: white;
+  color: var(--text-secondary);
+  border: 1px solid #E5E7EB;
+}
+
+.modal-actions .btn-secondary:hover {
+  background: #F9FAFB;
+  border-color: #D1D5DB;
+  color: var(--text-main);
+}
+
+.modal-actions .btn-primary {
+  background: var(--error);
+  color: white;
+}
+
+.modal-actions .btn-primary:hover {
+  background: #DC2626;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+}
+
+.modal-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }

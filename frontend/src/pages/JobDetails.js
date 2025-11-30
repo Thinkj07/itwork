@@ -255,6 +255,12 @@ const JobDetails = () => {
                   <h3>Đã ứng tuyển</h3>
                   <p>Bạn đã ứng tuyển vào vị trí này</p>
                 </div>
+              ) : job.status === 'closed' ? (
+                <div className="applied-message">
+                  <FiCheckCircle size={48} color="#EF4444" />
+                  <h3 style={{ color: '#EF4444' }}>Công việc đã đóng</h3>
+                  <p>Công việc này đã được đóng. Bạn không thể ứng tuyển vào công việc này.</p>
+                </div>
               ) : (
                 <>
                   <button onClick={handleApply} className="btn btn-primary btn-lg">

@@ -80,6 +80,9 @@
   background: var(--bg-input);
   color: var(--text-main);
 }
+.filter-group input[name="location"] {
+  width: 88%;
+}
 
 .filter-group select:focus,
 .filter-group input:focus {

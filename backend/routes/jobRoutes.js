@@ -7,7 +7,8 @@ const {
   updateJob,
   deleteJob,
   getJobsByCompany,
-  getMyJobs
+  getMyJobs,
+  closeJob
 } = require('../controllers/jobController');
 const { protect, authorize } = require('../middleware/auth');
 
@@ -17,6 +18,7 @@ router.route('/')
 
 router.get('/my-jobs', protect, authorize('employer'), getMyJobs);
 router.get('/company/:companyId', getJobsByCompany);
+router.patch('/:id/close', protect, authorize('employer'), closeJob);
 
 router.route('/:id')
   .get(getJob)

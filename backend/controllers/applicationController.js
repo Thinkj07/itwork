@@ -19,6 +19,14 @@ exports.applyForJob = async (req, res, next) => {
       });
     }
 
+    // Check if job is closed
+    if (job.status === 'closed') {
+      return res.status(400).json({
+        success: false,
+        message: 'Công việc này đã được đóng. Bạn không thể ứng tuyển vào công việc đã đóng.'
+      });
+    }
+
     // Check if already applied
     const existingApplication = await Application.findOne({
       job: jobId,

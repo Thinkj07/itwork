@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiMapPin, FiDollarSign, FiBriefcase, FiClock, FiBookmark } from 'react-icons/fi';
+import { FiMapPin, FiDollarSign, FiBriefcase, FiClock, FiBookmark, FiLock } from 'react-icons/fi';
 import './JobCard.css';
 
 const JobCard = ({ job, onSave, isSaved }) => {
@@ -92,6 +92,12 @@ const JobCard = ({ job, onSave, isSaved }) => {
         <div className="job-footer">
           <div className="job-meta">
             <span className="badge badge-primary">{job.category}</span>
+            {job.status === 'closed' && (
+              <span className="badge badge-danger" style={{ marginLeft: '8px' }}>
+                <FiLock size={12} style={{ marginRight: '4px' }} />
+                CLOSED
+              </span>
+            )}
             <span className="job-time">
               <FiClock size={14} />
               {getTimeAgo(job.createdAt)}

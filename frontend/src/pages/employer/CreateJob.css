@@ -29,6 +29,7 @@
 }
 
 .page-header-section h1 {
+  left: 80px;
   font-size: 32px;
   font-weight: 800;
   color: var(--text-main);
@@ -40,7 +41,7 @@
   content: '';
   position: absolute;
   bottom: -8px;
-  left: 0;
+  left: 0px;
   width: 80px;
   height: 4px;
   background: var(--secondary);
@@ -112,4 +113,16 @@
   .form-actions-bottom .btn {
     width: 100%;
   }
+}
+
+.form-group textarea{
+  width: 96%;
+}
+
+.form-group input{
+  width: 96%;
+}
+
+.form-group input[type="number"]{
+  width: 92%;
 }

@@ -180,6 +180,53 @@
   font-size: 16px;
 }
 
+/* Reviews Section */
+.reviews-section {
+  padding: 0;
+}
+
+.review-action-bar {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.review-action-bar .btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--secondary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.review-action-bar .btn:hover {
+  background: var(--secondary-hover);
+  box-shadow: 0 4px 12px rgba(0, 201, 167, 0.3);
+  transform: translateY(-1px);
+}
+
+.review-notice {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.review-notice p {
+  color: var(--success);
+  font-weight: 600;
+  margin: 0;
+  font-size: 14px;
+}
+
 @media (max-width: 768px) {
   .company-header-content {
     flex-direction: column;

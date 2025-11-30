@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { jobAPI } from '../../services/api';
-import { FiEdit, FiTrash2, FiEye, FiUsers } from 'react-icons/fi';
+import { FiEdit, FiTrash2, FiEye, FiUsers, FiLock } from 'react-icons/fi';
 import './ManageJobs.css';
 
 // Smooth scroll với easing function
@@ -40,6 +40,10 @@ const smoothScrollTo = (element, offset = 0) => {
 const ManageJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [jobToDelete, setJobToDelete] = useState(null);
+  const [deleting, setDeleting] = useState(false);
+  const [closing, setClosing] = useState(false);
   const location = useLocation(); // ✅ Thêm khai báo location
   const jobRefs = useRef({}); // ✅ Thêm khai báo jobRefs
   const hasScrolledRef = useRef(false); // ✅ Thêm khai báo hasScrolledRef
@@ -99,15 +103,55 @@ const ManageJobs = () => {
     }
   };
 
-  const handleDelete = async (jobId) => {
-    if (window.confirm('Bạn có chắc muốn xóa tin tuyển dụng này?')) {
-      try {
-        await jobAPI.deleteJob(jobId);
-        setJobs(jobs.filter(job => job._id !== jobId));
-        alert('Xóa thành công');
-      } catch (error) {
-        alert('Xóa thất bại');
-      }
+  const handleDeleteClick = (job) => {
+    setJobToDelete(job);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!jobToDelete) return;
+
+    setDeleting(true);
+    try {
+      await jobAPI.deleteJob(jobToDelete._id);
+      setJobs(jobs.filter(job => job._id !== jobToDelete._id));
+      setShowDeleteModal(false);
+      setJobToDelete(null);
+      alert('Xóa thành công');
+    } catch (error) {
+      alert('Xóa thất bại: ' + (error.message || ''));
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+    setJobToDelete(null);
+  };
+
+  const handleCloseJob = async (job) => {
+    if (job.status === 'closed') {
+      alert('Công việc này đã được đóng rồi');
+      return;
+    }
+
+    if (!window.confirm(`Bạn có chắc chắn muốn đóng công việc "${job.title}"?`)) {
+      return;
+    }
+
+    setClosing(true);
+    try {
+      await jobAPI.closeJob(job._id);
+      // Update job status in the list
+      setJobs(jobs.map(j => 
+        j._id === job._id ? { ...j, status: 'closed' } : j
+      ));
+      alert('Đã đóng công việc thành công');
+    } catch (error) {
+      alert('Đóng công việc thất bại: ' + (error.message || ''));
+    } finally {
+      setClosing(false);
     }
   };
 
@@ -141,8 +185,8 @@ const ManageJobs = () => {
               >
                 <div className="job-manage-header">
                   <h3>{job.title}</h3>
-                  <span className={`badge ${job.status === 'active' ? 'badge-success' : 'badge-danger'}`}>
-                    {job.status.toUpperCase()}
+                  <span className={`badge ${job.status === 'active' ? 'badge-success' : job.status === 'closed' ? 'badge-danger' : 'badge-warning'}`}>
+                    {job.status === 'active' ? 'ACTIVE' : job.status === 'closed' ? 'CLOSED' : job.status.toUpperCase()}
                   </span>
                 </div>
 
@@ -171,7 +215,16 @@ const ManageJobs = () => {
                   <Link to={`/employer/jobs/${job._id}/edit`} className="btn btn-sm btn-outline">
                     <FiEdit /> Sửa
                   </Link>
-                  <button onClick={() => handleDelete(job._id)} className="btn btn-sm btn-outline danger">
+                  {job.status !== 'closed' && (
+                    <button 
+                      onClick={() => handleCloseJob(job)} 
+                      className="btn btn-sm btn-outline btn-close"
+                      disabled={closing}
+                    >
+                      <FiLock /> Đóng
+                    </button>
+                  )}
+                  <button onClick={() => handleDeleteClick(job)} className="btn btn-sm btn-outline danger">
                     <FiTrash2 /> Xóa
                   </button>
                 </div>
@@ -180,6 +233,41 @@ const ManageJobs = () => {
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && jobToDelete && (
+        <div className="modal-overlay" onClick={handleCancelDelete}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Xác nhận xóa tin tuyển dụng</h2>
+            <p>
+              Bạn có chắc chắn muốn xóa tin tuyển dụng <strong>"{jobToDelete.title}"</strong>?
+            </p>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginTop: '12px' }}>
+              Hành động này không thể hoàn tác. Tin tuyển dụng và tất cả đơn ứng tuyển liên quan sẽ bị xóa vĩnh viễn.
+            </p>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                onClick={handleCancelDelete}
+                className="btn btn-secondary"
+                disabled={deleting}
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmDelete}
+                className="btn btn-primary"
+                disabled={deleting}
+                style={{ backgroundColor: 'var(--error)' }}
+              >
+                {deleting ? 'Đang xử lý...' : 'Xác nhận'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

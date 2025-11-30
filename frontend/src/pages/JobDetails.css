@@ -221,6 +221,7 @@
 }
 
 .applied-message h3 {
+  margin-top: 0;
   color: var(--success);
   margin-bottom: 8px;
   font-weight: 700;

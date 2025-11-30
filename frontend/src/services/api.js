@@ -77,6 +77,7 @@ export const jobAPI = {
   createJob: (data) => api.post('/jobs', data),
   updateJob: (id, data) => api.put(`/jobs/${id}`, data),
   deleteJob: (id) => api.delete(`/jobs/${id}`),
+  closeJob: (id) => api.patch(`/jobs/${id}/close`),
   getMyJobs: () => api.get('/jobs/my-jobs'),
   getJobsByCompany: (companyId) => api.get(`/jobs/company/${companyId}`)
 };

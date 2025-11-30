@@ -18,7 +18,7 @@ exports.getJobs = async (req, res, next) => {
       limit = 10
     } = req.query;
 
-    const query = { status: 'active' };
+    const query = { status: { $in: ['active', 'closed', 'paused'] } };
 
     // Search by keywords
     if (search) {
@@ -229,6 +229,50 @@ exports.getMyJobs = async (req, res, next) => {
       success: true,
       count: jobs.length,
       data: jobs
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Close job
+// @route   PATCH /api/jobs/:id/close
+// @access  Private (Employer only)
+exports.closeJob = async (req, res, next) => {
+  try {
+    const job = await Job.findById(req.params.id);
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: 'Không tìm thấy công việc'
+      });
+    }
+
+    // Make sure user is job owner
+    if (job.company.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: 'Bạn không có quyền đóng công việc này'
+      });
+    }
+
+    // Check if already closed
+    if (job.status === 'closed') {
+      return res.status(400).json({
+        success: false,
+        message: 'Công việc này đã được đóng rồi'
+      });
+    }
+
+    // Update status to closed
+    job.status = 'closed';
+    await job.save();
+
+    res.json({
+      success: true,
+      message: 'Đã đóng công việc thành công',
+      data: job
     });
   } catch (error) {
     next(error);
