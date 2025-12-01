@@ -126,8 +126,6 @@ const EmployerDashboard = () => {
                     <div className="job-info-col">
                       <h4>{job.title}</h4>
                       <div className="job-meta-tags">
-                        <span className="meta-tag">{job.location?.city || 'Remote'}</span>
-                        <span className="meta-tag">{job.experienceLevel}</span>
                         <span className="meta-tag">{job.category}</span>
                       </div>
                     </div>

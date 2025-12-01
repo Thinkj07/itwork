@@ -151,8 +151,6 @@
   background: #F59E0B !important;
   border-color: #F59E0B !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-  transform: translateY(-1px);
 }
 
 /* Disabled giữ style nhưng mờ đi */
