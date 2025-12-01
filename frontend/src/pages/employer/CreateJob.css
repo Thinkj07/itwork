@@ -10,7 +10,7 @@
 .back-btn {
   background: transparent;
   border: none;
-  color: var(--text-secondary);
+  color: var(--primary);
   font-weight: 600;
   cursor: pointer;
   margin-bottom: 16px;
@@ -24,8 +24,10 @@
 }
 
 .back-btn:hover {
+  color: var(--secondary);
   transform: translateX(-4px);
-  color: var(--primary);
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .page-header-section h1 {

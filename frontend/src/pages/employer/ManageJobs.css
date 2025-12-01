@@ -139,20 +139,23 @@
   color: white;
 }
 
-.btn-close {
-  color: #F59E0B;
-  border: 1px solid #F59E0B;
-  background: transparent;
+.job-manage-actions .btn.btn-sm.btn-outline.btn-close {
+  color: #F59E0B !important;
+  border-color: #F59E0B !important;
+  background: transparent !important;
 }
 
-.btn-close:hover {
-  background: #F59E0B;
-  color: white;
+/* Hover vẫn vàng */
+.job-manage-actions .btn.btn-sm.btn-outline.btn-close:hover {
+  background: #F59E0B !important;
+  border-color: #F59E0B !important;
+  color: #ffffff !important;
   box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
   transform: translateY(-1px);
 }
 
-.btn-close:disabled {
+/* Disabled giữ style nhưng mờ đi */
+.job-manage-actions .btn.btn-sm.btn-outline.btn-close:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;

@@ -28,7 +28,7 @@
 
 .profile-header-content {
   display: flex;
-  align-items: center;
+  align-items: top;
   gap: 32px;
 }
 
@@ -100,11 +100,14 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+.header-content-text h1 {
+  color: black !important;
+}
 
 .company-header-info h1 {
   font-size: 32px;
   font-weight: 800;
-  color: white;
+  color: black;
   margin-bottom: 4px;
   position: relative;
   display: inline-block;

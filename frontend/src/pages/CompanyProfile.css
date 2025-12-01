@@ -54,6 +54,7 @@
   font-weight: 800;
   margin-bottom: 12px;
   line-height: 1.2;
+  color: white !important;
 }
 
 .company-tagline {

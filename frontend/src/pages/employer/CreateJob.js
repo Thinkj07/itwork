@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { jobAPI } from '../../services/api';
 import './CreateJob.css';
+import { FiArrowLeft } from 'react-icons/fi';
 
 const CreateJob = () => {
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ const CreateJob = () => {
       <div className="container">
         <div className="page-header-section">
           <button onClick={() => navigate(-1)} className="back-btn">
-            ← Quay lại
+            <FiArrowLeft style={{ marginBottom: '2px' }} /> Quay lại
           </button>
           <h1>Đăng tin mới</h1>
         </div>

@@ -256,7 +256,7 @@ const EmployerProfile = () => {
                 ) : (
                   <>
                     <div className="header-content">
-                      <div>
+                      <div className='header-content-text'>
                         <h1>{profile?.companyName || 'Company Name'}</h1>
                         <p className="company-location">{profile?.companyAddress || 'Address'}</p>
                       </div>
