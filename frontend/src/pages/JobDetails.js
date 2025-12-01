@@ -186,14 +186,14 @@ const JobDetails = () => {
 
               <div className="job-meta-grid">
                 <div className="meta-item">
-                  <FiMapPin />
+                  <FiMapPin style={{marginTop: '12px', marginRight: '-5px'}}/>
                   <div>
                     <p className="meta-label">Địa điểm</p>
                     <p className="meta-value">{job.location?.city || 'Remote'}</p>
                   </div>
                 </div>
                 <div className="meta-item">
-                  <FiDollarSign />
+                  <FiDollarSign style={{marginTop: '12px', marginRight: '-5px'}}/>
                   <div>
                     <p className="meta-label">Mức lương</p>
                     <p className="meta-value">
@@ -204,14 +204,14 @@ const JobDetails = () => {
                   </div>
                 </div>
                 <div className="meta-item">
-                  <FiBriefcase />
+                  <FiBriefcase style={{marginTop: '12px', marginRight: '-5px'}}/>
                   <div>
                     <p className="meta-label">Kinh nghiệm</p>
                     <p className="meta-value">{job.experienceLevel}</p>
                   </div>
                 </div>
                 <div className="meta-item">
-                  <FiClock />
+                  <FiClock style={{marginTop: '12px', marginRight: '-5px'}}/>
                   <div>
                     <p className="meta-label">Loại hình</p>
                     <p className="meta-value">{job.jobType}</p>

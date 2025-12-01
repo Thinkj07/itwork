@@ -41,7 +41,7 @@ const SavedJobs = () => {
 
       <div className="container">
         <div className="page-title">
-          <h1>Saved Jobs</h1>
+          <h1>Việc đã lưu</h1>
           <p>Các công việc bạn đã lưu để xem sau</p>
         </div>
 

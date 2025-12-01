@@ -184,15 +184,10 @@ const MyApplications = () => {
                 className="application-card" 
                 ref={(el) => {
                   if (el) {
-                    // Store ref by application ID
                     applicationRefs.current[application._id] = el;
-                    
-                    // Also store by job ID if available
                     if (application.job?._id) {
                       applicationRefs.current[`job-${application.job._id}`] = el;
                     }
-                    
-                    // Debug: Log when ref is assigned
                     if (location.state?.scrollToApplication === application._id || 
                         location.state?.scrollToJob === application.job?._id) {
                       console.log('Ref assigned for:', application._id, application.job?._id);
