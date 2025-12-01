@@ -130,7 +130,7 @@
 
 .btn.danger {
   color: var(--error);
-  border: 1px solid var(--error);
+  border: 2px solid var(--error);
   background: transparent;
 }
 
@@ -139,6 +139,7 @@
   color: white;
 }
 
+/* Nút Đóng màu vàng, override btn-outline */
 .job-manage-actions .btn.btn-sm.btn-outline.btn-close {
   color: #F59E0B !important;
   border-color: #F59E0B !important;

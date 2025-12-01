@@ -44,9 +44,11 @@ const ManageJobs = () => {
   const [jobToDelete, setJobToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const [closing, setClosing] = useState(false);
-  const location = useLocation(); // ✅ Thêm khai báo location
-  const jobRefs = useRef({}); // ✅ Thêm khai báo jobRefs
-  const hasScrolledRef = useRef(false); // ✅ Thêm khai báo hasScrolledRef
+  const [showCloseModal, setShowCloseModal] = useState(false);   // ✅ thêm
+  const [jobToClose, setJobToClose] = useState(null);            // ✅ thêm
+  const location = useLocation();
+  const jobRefs = useRef({});
+  const hasScrolledRef = useRef(false);
 
   useEffect(() => {
     fetchJobs();
@@ -130,29 +132,37 @@ const ManageJobs = () => {
     setJobToDelete(null);
   };
 
-  const handleCloseJob = async (job) => {
+  const handleCloseClick = (job) => {
     if (job.status === 'closed') {
       alert('Công việc này đã được đóng rồi');
       return;
     }
-
-    if (!window.confirm(`Bạn có chắc chắn muốn đóng công việc "${job.title}"?`)) {
-      return;
-    }
-
+    setJobToClose(job);
+    setShowCloseModal(true);
+  };
+  
+  const handleConfirmClose = async () => {
+    if (!jobToClose) return;
+  
     setClosing(true);
     try {
-      await jobAPI.closeJob(job._id);
-      // Update job status in the list
-      setJobs(jobs.map(j => 
-        j._id === job._id ? { ...j, status: 'closed' } : j
+      await jobAPI.closeJob(jobToClose._id);
+      setJobs(jobs.map(j =>
+        j._id === jobToClose._id ? { ...j, status: 'closed' } : j
       ));
+      setShowCloseModal(false);
+      setJobToClose(null);
       alert('Đã đóng công việc thành công');
     } catch (error) {
       alert('Đóng công việc thất bại: ' + (error.message || ''));
     } finally {
       setClosing(false);
     }
+  };
+  
+  const handleCancelClose = () => {
+    setShowCloseModal(false);
+    setJobToClose(null);
   };
 
   return (
@@ -217,7 +227,7 @@ const ManageJobs = () => {
                   </Link>
                   {job.status !== 'closed' && (
                     <button 
-                      onClick={() => handleCloseJob(job)} 
+                      onClick={() => handleCloseClick(job)}  // ✅ đổi sang handleCloseClick
                       className="btn btn-sm btn-outline btn-close"
                       disabled={closing}
                     >
@@ -263,6 +273,40 @@ const ManageJobs = () => {
                 style={{ backgroundColor: 'var(--error)' }}
               >
                 {deleting ? 'Đang xử lý...' : 'Xác nhận'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showCloseModal && jobToClose && (
+        <div className="modal-overlay" onClick={handleCancelClose}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Xác nhận đóng tin tuyển dụng</h2>
+            <p>
+              Bạn có chắc chắn muốn <strong>đóng</strong> tin tuyển dụng <strong>"{jobToClose.title}"</strong>?
+            </p>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginTop: '12px' }}>
+              Ứng viên sẽ không thể ứng tuyển thêm vào tin này, nhưng tin vẫn hiển thị trong hệ thống để bạn quản lý.
+            </p>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                onClick={handleCancelClose}
+                className="btn btn-secondary"
+                disabled={closing}
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmClose}
+                className="btn btn-primary"
+                disabled={closing}
+                style={{ backgroundColor: '#F59E0B' }}
+              >
+                {closing ? 'Đang xử lý...' : 'Xác nhận'}
               </button>
             </div>
           </div>
