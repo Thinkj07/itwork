@@ -21,6 +21,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  font-family: var(--font-main);
 }
 
 .back-btn:hover {

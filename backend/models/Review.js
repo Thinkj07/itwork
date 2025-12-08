@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const ReviewSchema = new mongoose.Schema({
+  application: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Application',
+    required: true
+  },
   company: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -76,6 +81,7 @@ const ReviewSchema = new mongoose.Schema({
 
 // One review per candidate per company
 ReviewSchema.index({ company: 1, candidate: 1 }, { unique: true });
+ReviewSchema.index({ application: 1 }, { unique: true });
 
 module.exports = mongoose.model('Review', ReviewSchema);
 

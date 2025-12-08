@@ -178,7 +178,7 @@ const EmployerProfile = () => {
                 ref={logoFileRef}
                 type="file"
                 accept="image/*"
-                className="form-input"
+                className="avatar-form-input form-input"
               />
             ) : (
               <input
@@ -186,7 +186,7 @@ const EmployerProfile = () => {
                 placeholder="https://example.com/logo.jpg"
                 value={logoData.value}
                 onChange={(e) => setLogoData({ ...logoData, value: e.target.value })}
-                className="form-input"
+                className="avatar-form-input form-input"
               />
             )}
             <div className="form-actions">

@@ -148,7 +148,7 @@
 .search-box .btn:hover {
   background: var(--secondary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 201, 167, 0.3);
+  box-shadow: 0 10px 30px rgba(201, 0, 47, 0.3);
 }
 
 .popular-searches {

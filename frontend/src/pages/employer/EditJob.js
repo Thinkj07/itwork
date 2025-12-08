@@ -126,7 +126,7 @@ const EditJob = () => {
       <div className="container">
         <div className="page-header-section">
           <button onClick={() => navigate(-1)} className="back-btn">
-            <FiArrowLeft style={{ marginBottom: '2px' }} /> Quay lại
+            <FiArrowLeft style={{ marginBottom: '0px' }} /> Quay lại
           </button>
           <h1>Edit Job</h1>
         </div>

@@ -1,8 +1,13 @@
 import { create } from 'zustand';
 import { authAPI } from '../services/api';
 
+const mapUser = (u) => {
+  if (!u) return null;
+  return { ...u, id: u.id || u._id };
+};
+
 const useAuthStore = create((set) => ({
-  user: JSON.parse(localStorage.getItem('user')) || null,
+  user: mapUser(JSON.parse(localStorage.getItem('user'))),
   token: localStorage.getItem('token') || null,
   isAuthenticated: !!localStorage.getItem('token'),
   loading: false,
@@ -13,11 +18,12 @@ const useAuthStore = create((set) => ({
       set({ loading: true, error: null });
       const data = await authAPI.login(credentials);
       
+      const mappedUser = mapUser(data.user);
       localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('user', JSON.stringify(mappedUser));
       
       set({
-        user: data.user,
+        user: mappedUser,
         token: data.token,
         isAuthenticated: true,
         loading: false
@@ -35,11 +41,12 @@ const useAuthStore = create((set) => ({
       set({ loading: true, error: null });
       const data = await authAPI.register(userData);
       
+      const mappedUser = mapUser(data.user);
       localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('user', JSON.stringify(mappedUser));
       
       set({
-        user: data.user,
+        user: mappedUser,
         token: data.token,
         isAuthenticated: true,
         loading: false
@@ -63,14 +70,15 @@ const useAuthStore = create((set) => ({
   },
 
   updateUser: (userData) => {
-    const updatedUser = { ...useAuthStore.getState().user, ...userData };
+    const updatedUser = mapUser({ ...useAuthStore.getState().user, ...userData });
     localStorage.setItem('user', JSON.stringify(updatedUser));
     set({ user: updatedUser });
   },
 
   setUser: (userData) => {
-    localStorage.setItem('user', JSON.stringify(userData));
-    set({ user: userData });
+    const mappedUser = mapUser(userData);
+    localStorage.setItem('user', JSON.stringify(mappedUser));
+    set({ user: mappedUser });
   }
 }));
 

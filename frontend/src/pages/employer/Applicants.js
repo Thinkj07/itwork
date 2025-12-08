@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { jobAPI, applicationAPI } from '../../services/api';
-import { FiMail, FiPhone, FiUser, FiFileText } from 'react-icons/fi';
+import { FiMail, FiPhone, FiUser, FiFileText, FiArrowLeft } from 'react-icons/fi';
 import './Applicants.css';
 
 const Applicants = () => {
@@ -65,7 +65,7 @@ const Applicants = () => {
       <div className="container">
         <div className="page-header-section">
           <button onClick={() => navigate(-1)} className="back-btn">
-            ← Quay lại
+            <FiArrowLeft style={{ marginBottom: '2px' }} /> Quay lại
           </button>
           <h1>{job?.title}</h1>
           <p className="job-subtitle">Danh sách ứng viên ({applications.length})</p>
@@ -78,7 +78,11 @@ const Applicants = () => {
                 <div
                   key={application._id}
                   className={`applicant-card ${selectedApplicant?._id === application._id ? 'selected' : ''}`}
-                  onClick={() => setSelectedApplicant(application)}
+                  onClick={() => {
+                    setSelectedApplicant(prev =>
+                      prev?._id === application._id ? null : application
+                    );
+                  }}
                 >
                   <div className="applicant-header">
                     <div className="applicant-avatar">
@@ -129,15 +133,6 @@ const Applicants = () => {
                       }}
                     >
                       Xem CV
-                    </button>
-                    <button 
-                      className="btn btn-sm btn-outline"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedApplicant(application);
-                      }}
-                    >
-                      Xem chi tiết
                     </button>
                   </div>
                 </div>

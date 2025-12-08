@@ -301,7 +301,22 @@
 }
 
 .form-input,
+.avatar-form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #E5E7EB;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  background: var(--bg-input);
+  max-width: 468px;
+  overflow-y: auto;
+}
+
+
 .form-textarea {
+  max-width: 909px;
   width: 100%;
   padding: 12px 14px;
   border: 1px solid #E5E7EB;

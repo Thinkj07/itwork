@@ -36,6 +36,7 @@ exports.createReview = async (req, res, next) => {
     }
 
     const review = await Review.create({
+      application: hiredApplication._id,
       company: companyId,
       candidate: req.user.id,
       job: jobId,

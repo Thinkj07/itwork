@@ -80,7 +80,7 @@ const Home = () => {
               </div>
               
               <button type="submit" className="btn btn-primary btn-lg">
-                🚀 Tìm kiếm ngay
+                 Tìm kiếm ngay
               </button>
             </form>
 

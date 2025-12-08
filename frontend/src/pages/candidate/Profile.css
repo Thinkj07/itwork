@@ -186,6 +186,8 @@
   border-radius: 6px;
   font-size: 14px;
   transition: border-color 0.3s;
+  max-width: 735px;
+  overflow-y: auto;
 }
 
 .form-input:focus,
