@@ -178,8 +178,20 @@
   font-size: 14px;
 }
 
-.form-input,
-.form-textarea {
+.education-form-input {
+  width: 100%;
+}
+
+.cv-edit input[type="text"] {
+  max-width: 735px;
+}
+
+.skills-input-group .form-input {
+  width: 100%;
+  max-width: 644px;
+}
+
+.about-edit .form-textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #d1d5db;

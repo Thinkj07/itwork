@@ -314,9 +314,12 @@
   overflow-y: auto;
 }
 
+.about-edit .form-textarea {
+  max-width: 909px;
+  overflow-y: auto;
+}
 
 .form-textarea {
-  max-width: 909px;
   width: 100%;
   padding: 12px 14px;
   border: 1px solid #E5E7EB;

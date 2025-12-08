@@ -352,7 +352,7 @@ const CandidateProfile = () => {
                           type="text"
                           value={edu.school}
                           onChange={(e) => handleEducationChange(index, 'school', e.target.value)}
-                          className="form-input"
+                          className="form-input education-form-input"
                           placeholder="Đại học Bách Khoa"
                         />
                       </div>
@@ -362,7 +362,7 @@ const CandidateProfile = () => {
                           type="text"
                           value={edu.degree}
                           onChange={(e) => handleEducationChange(index, 'degree', e.target.value)}
-                          className="form-input"
+                          className="form-input education-form-input"
                           placeholder="Cử nhân"
                         />
                       </div>
@@ -372,7 +372,7 @@ const CandidateProfile = () => {
                           type="text"
                           value={edu.field}
                           onChange={(e) => handleEducationChange(index, 'field', e.target.value)}
-                          className="form-input"
+                          className="form-input education-form-input"
                           placeholder="Khoa học máy tính"
                         />
                       </div>

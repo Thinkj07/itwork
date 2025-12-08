@@ -27,7 +27,11 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    if (error.response?.status === 401) {
+    const status = error.response?.status;
+    const isLoginPage = window.location.pathname === '/login';
+
+    // Chỉ redirect về /login nếu đang không ở trang login
+    if (status === 401 && !isLoginPage) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/login';

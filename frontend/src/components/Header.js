@@ -19,7 +19,7 @@ const Header = () => {
     <header className="header">
       <div className="container">
         <div className="header-content">
-          <Link to="/" className="logo">
+          <Link to="/" className="logo" style={{ marginTop: '5px' }}>
             <FiBriefcase size={28} />
             <span>ITWorks</span>
           </Link>
