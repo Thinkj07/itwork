@@ -59,6 +59,28 @@
   width: 100%;
 }
 
+/* Admin Link Styling */
+.nav-link.admin-link {
+  background: linear-gradient(136deg, #39aa82 0%, #4fd69c 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.nav-link.admin-link:hover {
+  box-shadow: 0 4px 12px rgba(102, 222, 234, 1.4);
+  color: white;
+}
+
+.nav-link.admin-link::after {
+  display: none;
+}
+
 .auth-buttons {
   display: flex;
   gap: 16px;

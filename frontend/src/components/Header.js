@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/useAuthStore';
 import Notifications from './Notifications';
-import { FiBriefcase, FiUser, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { FiBriefcase, FiUser, FiLogOut, FiMenu, FiX, FiShield } from 'react-icons/fi';
 import './Header.css';
 
 const Header = () => {
@@ -46,18 +46,31 @@ const Header = () => {
                   </>
                 )}
                 
+                {user?.role === 'admin' && (
+                  <>
+                    <Link to="/admin/dashboard" className="nav-link admin-link">
+                      <FiShield size={16} style={{ marginRight: '6px' }} />
+                      Admin Dashboard
+                    </Link>
+                  </>
+                )}
+                
                 <Notifications />
                 
                 <div className="user-menu">
                   <div className="user-info">
                     <div className="user-avatar">
-                      {(user?.role === 'candidate' && user?.avatar) || (user?.role === 'employer' && user?.companyLogo) ? (
+                      {user?.role === 'admin' ? (
+                        <FiShield size={20} style={{ color: '#667eea' }} />
+                      ) : (user?.role === 'candidate' && user?.avatar) || (user?.role === 'employer' && user?.companyLogo) ? (
                         <img src={user?.role === 'candidate' ? user.avatar : user.companyLogo} alt={user.fullName || user.companyName} />
                       ) : (
                         <FiUser size={20} />
                       )}
                     </div>
-                    <span>{user?.fullName || user?.companyName}</span>
+                    <span>
+                      {user?.role === 'admin' ? 'Admin' : (user?.fullName || user?.companyName)}
+                    </span>
                   </div>
                   <button onClick={handleLogout} className="btn-logout">
                     <FiLogOut /> Đăng xuất

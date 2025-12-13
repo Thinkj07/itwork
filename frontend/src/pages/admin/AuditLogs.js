@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { adminAPI } from '../../services/api';
 import { FiFilter, FiChevronLeft, FiChevronRight, FiFileText } from 'react-icons/fi';
 import './AuditLogs.css';
@@ -26,11 +26,7 @@ const AuditLogs = () => {
 
   const targetTypes = ['User', 'Job', 'Application', 'Review', 'System'];
 
-  useEffect(() => {
-    fetchAuditLogs();
-  }, [currentPage, actionFilter, targetTypeFilter]);
-
-  const fetchAuditLogs = async () => {
+  const fetchAuditLogs = useCallback(async () => {
     try {
       setLoading(true);
       const params = {
@@ -51,7 +47,11 @@ const AuditLogs = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, actionFilter, targetTypeFilter, limit]);
+
+  useEffect(() => {
+    fetchAuditLogs();
+  }, [fetchAuditLogs]);
 
   const getActionBadgeClass = (action) => {
     if (action.includes('DELETE') || action.includes('BLOCK')) return 'badge-danger';

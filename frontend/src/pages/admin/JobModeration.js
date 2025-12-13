@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { adminAPI } from '../../services/api';
 import { 
   FiSearch, FiFilter, FiCheckCircle, FiXCircle, FiTrash2, FiEye,
@@ -32,11 +32,7 @@ const JobModeration = () => {
     'QA / Tester', 'Product Manager', 'Finance / Accounting', 'Marketing', 'Other'
   ];
 
-  useEffect(() => {
-    fetchJobs();
-  }, [currentPage, statusFilter, categoryFilter]);
-
-  const fetchJobs = async () => {
+  const fetchJobs = useCallback(async () => {
     try {
       setLoading(true);
       const params = {
@@ -58,7 +54,11 @@ const JobModeration = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, statusFilter, categoryFilter, search, limit]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, [fetchJobs]);
 
   const handleSearch = (e) => {
     e.preventDefault();

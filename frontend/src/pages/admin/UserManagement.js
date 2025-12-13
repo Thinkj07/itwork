@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { adminAPI } from '../../services/api';
 import { 
   FiSearch, FiFilter, FiLock, FiUnlock, FiTrash2, FiEye,
@@ -27,11 +27,7 @@ const UserManagement = () => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
 
-  useEffect(() => {
-    fetchUsers();
-  }, [currentPage, roleFilter, statusFilter]);
-
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       const params = {
@@ -53,7 +49,11 @@ const UserManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, roleFilter, statusFilter, search, limit]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleSearch = (e) => {
     e.preventDefault();
