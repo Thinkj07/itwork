@@ -41,46 +41,47 @@ exports.getDashboardStats = async (req, res, next) => {
     const activeJobs = await Job.countDocuments({ status: 'active' });
     const totalApplications = await Application.countDocuments();
 
-    // New users this week
     const newUsersThisWeek = await User.countDocuments({
       createdAt: { $gte: oneWeekAgo }
     });
 
-    // New users this month
     const newUsersThisMonth = await User.countDocuments({
       createdAt: { $gte: oneMonthAgo }
     });
 
-    // New jobs this week
     const newJobsThisWeek = await Job.countDocuments({
       createdAt: { $gte: oneWeekAgo }
     });
 
-    // New jobs this month
     const newJobsThisMonth = await Job.countDocuments({
       createdAt: { $gte: oneMonthAgo }
     });
 
-    // New applications this week
     const newApplicationsThisWeek = await Application.countDocuments({
       createdAt: { $gte: oneWeekAgo }
     });
 
-    // New applications this month
     const newApplicationsThisMonth = await Application.countDocuments({
       createdAt: { $gte: oneMonthAgo }
     });
 
-    // Active users (users who applied or posted jobs in last 30 days)
-    const activeUserIds = await Application.distinct('candidate', {
+    const activeCandidateIds = await Application.distinct('candidate', {
       createdAt: { $gte: oneMonthAgo }
     });
-    const activeUsers = activeUserIds.length;
+    
+    const activeEmployerIds = await Job.distinct('company', {
+      createdAt: { $gte: oneMonthAgo }
+    });
+    
+    const allActiveUserIds = new Set([
+      ...activeCandidateIds.map(id => id.toString()),
+      ...activeEmployerIds.map(id => id.toString())
+    ]);
+    
+    const activeUsers = allActiveUserIds.size;
 
-    // Blocked users
     const blockedUsers = await User.countDocuments({ isActive: false });
 
-    // Jobs by status
     const jobsByStatus = await Job.aggregate([
       {
         $group: {
@@ -90,7 +91,6 @@ exports.getDashboardStats = async (req, res, next) => {
       }
     ]);
 
-    // Applications by status
     const applicationsByStatus = await Application.aggregate([
       {
         $group: {
@@ -100,7 +100,6 @@ exports.getDashboardStats = async (req, res, next) => {
       }
     ]);
 
-    // Top companies by job count
     const topCompanies = await Job.aggregate([
       {
         $group: {
@@ -131,7 +130,6 @@ exports.getDashboardStats = async (req, res, next) => {
       }
     ]);
 
-    // Recent activities (last 10 audit logs)
     const recentActivities = await AuditLog.find()
       .sort({ timestamp: -1 })
       .limit(10)
@@ -198,7 +196,6 @@ exports.getGrowthData = async (req, res, next) => {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 
-    // Users growth
     const usersGrowth = await User.aggregate([
       {
         $match: { createdAt: { $gte: startDate } }
@@ -212,7 +209,6 @@ exports.getGrowthData = async (req, res, next) => {
       { $sort: { _id: 1 } }
     ]);
 
-    // Jobs growth
     const jobsGrowth = await Job.aggregate([
       {
         $match: { createdAt: { $gte: startDate } }
@@ -226,7 +222,6 @@ exports.getGrowthData = async (req, res, next) => {
       { $sort: { _id: 1 } }
     ]);
 
-    // Applications growth
     const applicationsGrowth = await Application.aggregate([
       {
         $match: { createdAt: { $gte: startDate } }
@@ -270,7 +265,6 @@ exports.getUsers = async (req, res, next) => {
       sortOrder = 'desc'
     } = req.query;
 
-    // Build query
     const query = {};
     
     if (role && role !== 'all') {
@@ -291,7 +285,6 @@ exports.getUsers = async (req, res, next) => {
       ];
     }
 
-    // Pagination
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const sort = { [sortBy]: sortOrder === 'desc' ? -1 : 1 };
 
@@ -332,7 +325,6 @@ exports.getUserDetails = async (req, res, next) => {
       });
     }
 
-    // Get additional stats
     let additionalInfo = {};
 
     if (user.role === 'candidate') {
@@ -381,7 +373,6 @@ exports.toggleUserStatus = async (req, res, next) => {
       });
     }
 
-    // Prevent blocking system accounts
     if (user.isSystemAccount) {
       return res.status(403).json({
         success: false,
@@ -389,7 +380,6 @@ exports.toggleUserStatus = async (req, res, next) => {
       });
     }
 
-    // Prevent blocking other admins
     if (user.role === 'admin') {
       return res.status(403).json({
         success: false,
@@ -401,7 +391,6 @@ exports.toggleUserStatus = async (req, res, next) => {
     user.isActive = !user.isActive;
     await user.save();
 
-    // Create audit log
     await createAuditLog(
       req.user.id,
       user.isActive ? 'UNBLOCK_USER' : 'BLOCK_USER',
