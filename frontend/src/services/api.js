@@ -127,5 +127,28 @@ export const notificationAPI = {
   deleteNotification: (id) => api.delete(`/notifications/${id}`)
 };
 
+// Admin APIs
+export const adminAPI = {
+  // Dashboard & Statistics
+  getDashboardStats: () => api.get('/admin/dashboard/stats'),
+  getGrowthData: (params) => api.get('/admin/dashboard/growth', { params }),
+  
+  // User Management
+  getUsers: (params) => api.get('/admin/users', { params }),
+  getUserDetails: (id) => api.get(`/admin/users/${id}`),
+  updateUser: (id, data) => api.put(`/admin/users/${id}`, data),
+  toggleUserStatus: (id, data) => api.put(`/admin/users/${id}/toggle-status`, data),
+  deleteUser: (id, data) => api.delete(`/admin/users/${id}`, { data }),
+  
+  // Job Management
+  getJobs: (params) => api.get('/admin/jobs', { params }),
+  getJobDetails: (id) => api.get(`/admin/jobs/${id}`),
+  updateJobStatus: (id, data) => api.put(`/admin/jobs/${id}/status`, data),
+  deleteJob: (id, data) => api.delete(`/admin/jobs/${id}`, { data }),
+  
+  // Audit Logs
+  getAuditLogs: (params) => api.get('/admin/audit-logs', { params })
+};
+
 export default api;
 

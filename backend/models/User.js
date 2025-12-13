@@ -19,8 +19,14 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['candidate', 'employer'],
+    enum: ['candidate', 'employer', 'admin'],
     required: [true, 'Vui lòng chọn vai trò']
+  },
+  
+  // System account flag (prevents deletion)
+  isSystemAccount: {
+    type: Boolean,
+    default: false
   },
   
   // Candidate-specific fields
@@ -123,9 +129,16 @@ UserSchema.methods.matchPassword = async function(enteredPassword) {
 
 // Generate JWT token
 UserSchema.methods.getSignedJwtToken = function() {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
-  });
+  return jwt.sign(
+    { 
+      id: this._id,
+      role: this.role 
+    }, 
+    process.env.JWT_SECRET, 
+    {
+      expiresIn: process.env.JWT_EXPIRE
+    }
+  );
 };
 
 module.exports = mongoose.model('User', UserSchema);

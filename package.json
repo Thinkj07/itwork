@@ -9,7 +9,8 @@
     "client": "npm start --prefix frontend",
     "dev:all": "concurrently \"npm run dev\" \"npm run client\"",
     "install:all": "npm install && cd frontend && npm install && cd ..",
-    "build": "cd frontend && npm run build"
+    "build": "cd frontend && npm run build",
+    "seed:admin": "node backend/scripts/seedAdmin.js"
   },
   "keywords": ["job", "recruitment", "mern", "it"],
   "author": "",

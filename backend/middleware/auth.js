@@ -31,6 +31,14 @@ exports.protect = async (req, res, next) => {
       });
     }
 
+    // Check if user is active
+    if (!req.user.isActive) {
+      return res.status(403).json({
+        success: false,
+        message: 'Tài khoản đã bị vô hiệu hóa'
+      });
+    }
+
     next();
   } catch (error) {
     next(error);
@@ -48,5 +56,41 @@ exports.authorize = (...roles) => {
     }
     next();
   };
+};
+
+// Verify Admin - Enhanced security middleware for admin routes
+exports.verifyAdmin = async (req, res, next) => {
+  try {
+    // User must be authenticated first (protect middleware should run before this)
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Vui lòng đăng nhập để tiếp tục'
+      });
+    }
+
+    // Check if user role is admin
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Không có quyền truy cập. Chỉ Admin mới được phép.'
+      });
+    }
+
+    // Double check user is active
+    if (!req.user.isActive) {
+      return res.status(403).json({
+        success: false,
+        message: 'Tài khoản Admin đã bị vô hiệu hóa'
+      });
+    }
+
+    next();
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Lỗi xác thực quyền Admin'
+    });
+  }
 };
 

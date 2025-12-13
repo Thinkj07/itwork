@@ -1,0 +1,151 @@
+.audit-logs {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logs Container */
+.logs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Log Item */
+.log-item {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.log-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.log-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.log-content {
+  flex: 1;
+}
+
+.log-header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.badge-danger {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.badge-success {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.badge-warning {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.badge-info {
+  background-color: #bee3f8;
+  color: #2c5282;
+}
+
+.badge-type {
+  background-color: #e6f2ff;
+  color: #3182ce;
+}
+
+.log-description {
+  margin: 0 0 12px 0;
+  color: #2d3748;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.log-footer {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.log-admin {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.log-time,
+.log-ip {
+  color: #a0aec0;
+}
+
+/* Metadata */
+.log-metadata {
+  margin-top: 15px;
+  background-color: #f7fafc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.log-metadata summary {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #4a5568;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.log-metadata summary:hover {
+  background-color: #edf2f7;
+}
+
+.log-metadata pre {
+  margin: 0;
+  padding: 15px;
+  background-color: #2d3748;
+  color: #e2e8f0;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .log-item {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .log-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+
+  .log-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

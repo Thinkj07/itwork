@@ -1,0 +1,162 @@
+.job-moderation {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Job Title Cell */
+.job-title-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.job-title-cell svg {
+  color: #667eea;
+  font-size: 1.1rem;
+}
+
+/* Company Cell */
+.company-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.company-logo-tiny {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Salary Cell */
+.salary-cell {
+  font-weight: 500;
+  color: #48bb78;
+}
+
+/* Additional Badge Styles */
+.badge-category {
+  background-color: #e6f2ff;
+  color: #3182ce;
+}
+
+.badge-level {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.badge-paused {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.badge-closed {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+/* Action Button Variants */
+.btn-approve {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.btn-approve:hover:not(:disabled) {
+  background-color: #9ae6b4;
+}
+
+.btn-reject {
+  background-color: #feebc8;
+  color: #c05621;
+}
+
+.btn-reject:hover:not(:disabled) {
+  background-color: #fbd38d;
+}
+
+/* Modal Large */
+.modal-large {
+  max-width: 800px;
+}
+
+/* Job Detail Section */
+.job-detail-section {
+  margin-bottom: 30px;
+}
+
+.job-detail-section h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.5rem;
+  color: #1a202c;
+}
+
+.job-detail-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.job-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.job-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.job-description {
+  background-color: #f7fafc;
+  padding: 15px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+/* Skills List */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  padding: 6px 14px;
+  background-color: #e6f2ff;
+  color: #3182ce;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Jobs Table Specific */
+.jobs-table td {
+  vertical-align: middle;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .job-title-cell span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
+  }
+
+  .job-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-large {
+    max-width: 100%;
+  }
+}

@@ -25,6 +25,13 @@ import ManageJobs from './pages/employer/ManageJobs';
 import Applicants from './pages/employer/Applicants';
 import EmployerProfile from './pages/employer/Profile';
 
+// Admin Pages
+import AdminLayout from './components/AdminLayout';
+import AdminDashboard from './pages/admin/Dashboard';
+import UserManagement from './pages/admin/UserManagement';
+import JobModeration from './pages/admin/JobModeration';
+import AuditLogs from './pages/admin/AuditLogs';
+
 import './App.css';
 
 // Protected Route Component
@@ -129,6 +136,48 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['employer']}>
                 <Applicants />
+              </ProtectedRoute>
+            } 
+          />
+
+          {/* Admin Routes */}
+          <Route 
+            path="/admin/dashboard" 
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminLayout>
+                  <AdminDashboard />
+                </AdminLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/users" 
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminLayout>
+                  <UserManagement />
+                </AdminLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/jobs" 
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminLayout>
+                  <JobModeration />
+                </AdminLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/audit-logs" 
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminLayout>
+                  <AuditLogs />
+                </AdminLayout>
               </ProtectedRoute>
             } 
           />

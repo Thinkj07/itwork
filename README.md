@@ -86,7 +86,6 @@ npm start
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000
 
-
 ## 👤 Tài khoản demo
 
 ### Ứng viên
@@ -98,6 +97,20 @@ npm start
 
 - Email: employer@gmail.com
 - Password: 123qweasd
+
+### 🔐 Quản trị viên (Admin)
+
+**Tạo tài khoản Admin:**
+
+```bash
+npm run seed:admin
+```
+
+- Email: admin@system.com
+- Password: Admin@123456
+- **⚠️ LƯU Ý:** Đổi mật khẩu sau lần đăng nhập đầu tiên!
+
+**Truy cập Admin Panel:** http://localhost:3000/admin/dashboard
 
 ## 📝 API Endpoints
 
@@ -142,3 +155,17 @@ npm start
 - `POST /api/reviews` - Tạo đánh giá (Candidate)
 - `GET /api/reviews/company/:companyId` - Lấy đánh giá của công ty
 - `GET /api/reviews/my-reviews` - Lấy đánh giá của candidate
+
+### 🔐 Admin (Quản trị viên)
+
+- `GET /api/admin/dashboard/stats` - Thống kê tổng quan
+- `GET /api/admin/dashboard/growth` - Dữ liệu tăng trưởng
+- `GET /api/admin/users` - Quản lý users (search, filter, pagination)
+- `PUT /api/admin/users/:id/toggle-status` - Khóa/Mở khóa user
+- `DELETE /api/admin/users/:id` - Xóa user
+- `GET /api/admin/jobs` - Quản lý jobs
+- `PUT /api/admin/jobs/:id/status` - Duyệt/Từ chối job
+- `DELETE /api/admin/jobs/:id` - Xóa job
+- `GET /api/admin/audit-logs` - Xem lịch sử hành động
+
+**📖 Xem hướng dẫn chi tiết:** [ADMIN_MODULE_GUIDE.md](./ADMIN_MODULE_GUIDE.md)
