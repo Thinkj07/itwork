@@ -62,7 +62,14 @@ const RoleSelection = () => {
       <div className="auth-container">
         <div className="auth-card">
           <h1 className="auth-title">
-            {role === 'candidate' ? 'Đăng ký tài khoản Ứng viên' : 'Đăng ký tài khoản Nhà tuyển dụng'}
+            {role === 'candidate' 
+              ? 'Đăng ký tài khoản Ứng viên' 
+              : (
+                  <>
+                    Đăng ký tài khoản<br />Nhà tuyển dụng
+                  </>
+                )
+            }
           </h1>
           <p className="auth-subtitle">
             {role === 'candidate' 

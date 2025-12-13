@@ -121,9 +121,12 @@
 .form-group textarea{
   width: 96%;
 }
-
+.form-group .header {
+  max-width: 1000px;
+}
 .form-group input{
   width: 96%;
+  
 }
 
 .form-group input[type="number"]{

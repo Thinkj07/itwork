@@ -97,7 +97,7 @@ const CreateJob = () => {
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="form-input"
+                className="form-input header"
                 required
               />
             </div>
@@ -132,7 +132,7 @@ const CreateJob = () => {
                 placeholder="Select location"
                 value={formData.city}
                 onChange={handleChange}
-                className="form-input"
+                className="form-input header"
               />
             </div>
 
