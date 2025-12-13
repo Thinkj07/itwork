@@ -118,17 +118,20 @@
   }
 }
 
-.form-group textarea{
-  width: 96%;
-}
+/* Form inputs should use 100% width from App.css */
+/* Remove any width overrides to ensure proper layout */
+
 .form-group .header {
-  max-width: 1000px;
-}
-.form-group input{
-  width: 96%;
-  
+  width: 100%;
 }
 
-.form-group input[type="number"]{
-  width: 92%;
+/* Control textarea dimensions */
+.job-form .form-textarea {
+  min-height: 100px;
+  max-height: 300px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }

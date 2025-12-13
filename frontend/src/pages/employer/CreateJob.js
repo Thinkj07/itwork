@@ -275,7 +275,7 @@ const CreateJob = () => {
                 value={formData.description}
                 onChange={handleChange}
                 className="form-textarea"
-                rows="8"
+                rows="5"
                 required
               />
             </div>
@@ -287,7 +287,7 @@ const CreateJob = () => {
                 value={formData.requirements}
                 onChange={handleChange}
                 className="form-textarea"
-                rows="8"
+                rows="5"
                 required
               />
             </div>
@@ -299,7 +299,7 @@ const CreateJob = () => {
                 value={formData.benefits}
                 onChange={handleChange}
                 className="form-textarea"
-                rows="6"
+                rows="5"
               />
             </div>
           </div>

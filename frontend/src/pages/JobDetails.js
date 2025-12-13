@@ -25,7 +25,7 @@ const JobDetails = () => {
     fetchJobDetails();
     if (isAuthenticated && user?.role === 'candidate') {
       checkApplicationStatus();
-      checkSavedStatus();
+      checkSavedStatus(); // Now it's async and will fetch from API
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isAuthenticated, user]);
@@ -62,9 +62,28 @@ const JobDetails = () => {
     }
   };
 
-  const checkSavedStatus = () => {
-    if (user?.savedJobs) {
-      setIsSaved(user.savedJobs.includes(id));
+  const checkSavedStatus = async () => {
+    // Chỉ check nếu user đã login và là candidate
+    if (!isAuthenticated || user?.role !== 'candidate') {
+      return;
+    }
+
+    try {
+      const data = await userAPI.getSavedJobs();
+      const savedJobs = data.data || [];
+      
+      // Check xem job này có trong danh sách saved jobs không
+      const isJobSaved = savedJobs.some(
+        savedJob => savedJob._id === id || savedJob === id
+      );
+      
+      setIsSaved(isJobSaved);
+    } catch (error) {
+      console.error('Error checking saved status:', error);
+      // Fallback to check from user store if API fails
+      if (user?.savedJobs) {
+        setIsSaved(user.savedJobs.includes(id));
+      }
     }
   };
 
@@ -82,10 +101,15 @@ const JobDetails = () => {
     setSavingJob(true);
     try {
       await userAPI.toggleSaveJob(id);
-      setIsSaved(!isSaved);
-      // Update user in store
+      const newSavedStatus = !isSaved;
+      setIsSaved(newSavedStatus);
+      
+      // Update user in store with savedJobs
       const updatedUser = await authAPI.getMe();
       useAuthStore.getState().setUser(updatedUser.data);
+      
+      // Also refresh savedJobs list to ensure consistency
+      await checkSavedStatus();
     } catch (error) {
       alert('Có lỗi xảy ra. Vui lòng thử lại.');
     } finally {
@@ -269,7 +293,7 @@ const JobDetails = () => {
                   {isAuthenticated && user?.role === 'candidate' && (
                     <button 
                       onClick={handleToggleSaveJob} 
-                      className={`btn btn-lg ${isSaved ? 'btn-primary' : 'btn-outline'}`}
+                      className={`btn btn-lg ${isSaved ? 'btn-accent' : 'btn-outline'}`}
                       disabled={savingJob}
                       style={{marginTop: '10px'}}
                     >

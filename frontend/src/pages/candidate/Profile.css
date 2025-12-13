@@ -183,7 +183,9 @@
 }
 
 .cv-edit input[type="text"] {
-  max-width: 735px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .skills-input-group .form-input {
@@ -193,13 +195,16 @@
 
 .about-edit .form-textarea {
   width: 100%;
+  max-width: 100%;
   padding: 10px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
   font-size: 14px;
   transition: border-color 0.3s;
-  max-width: 735px;
   overflow-y: auto;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .form-input:focus,

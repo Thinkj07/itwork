@@ -211,6 +211,17 @@
   transform: translateY(-2px);
 }
 
+.apply-card .btn.btn-accent {
+  background: rgb(86, 156, 210);
+  color: white;
+}
+
+.apply-card .btn.btn-accent:hover {
+  background: #415bce;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  transform: translateY(-2px);
+}
+
 .applied-message {
   text-align: center;
 }
@@ -307,6 +318,62 @@
   margin-bottom: 24px;
 }
 
+/* Form styles in modal */
+.modal-content form {
+  width: 100%;
+}
+
+.modal-content .form-group {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.modal-content .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.modal-content .form-textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  max-height: 300px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  transition: all 0.2s ease;
+}
+
+.modal-content .form-textarea:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(0, 201, 167, 0.1);
+}
+
+.modal-content .cv-info {
+  width: 100%;
+}
+
+.modal-content .cv-info .help-text {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+.modal-content .cv-info .btn {
+  display: inline-block;
+  margin-top: 0;
+}
+
 .cv-options {
   display: flex;
   flex-direction: column;
@@ -344,17 +411,30 @@
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   margin-top: 8px;
+  margin-bottom: 0;
   border: 1px solid rgba(245, 158, 11, 0.2);
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+}
+
+.modal-content .help-text {
+  margin-top: 0;
+  margin-bottom: 12px;
+  margin-left: 0px;
 }
 
 .modal-actions {
   display: flex;
   gap: 16px;
   margin-top: 32px;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .modal-actions .btn {
-  flex: 1;
+  flex: 0 1 auto;
+  min-width: 120px;
 }
 
 @media (max-width: 1024px) {
@@ -364,5 +444,21 @@
 
   .job-sidebar {
     position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .modal-content {
+    padding: 24px;
+    max-width: 95%;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+    min-width: unset;
   }
 }
